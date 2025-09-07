@@ -1,0 +1,244 @@
+<template>
+    <a-card :bordered="false">
+        <!-- 查询区域 -->
+        <div class="table-page-search-wrapper">
+            <a-form layout="inline" @keyup.enter.native="searchQuery">
+                <a-row :gutter="24">
+                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                        <a-form-item label="状态">
+                            <a-select v-model="queryParam.status" placeholder="请选择状态">
+                                <a-select-option value="APPLYING">申请中</a-select-option>
+                                <a-select-option value="COMPLETED">已完成</a-select-option>
+                                <a-select-option value="REJECTED">已拒绝</a-select-option>
+                                <a-select-option value="REWARDING">领取奖励中</a-select-option>
+                            </a-select>
+                        </a-form-item>
+                    </a-col>
+
+                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                        <a-form-item label="活动分类">
+                            <a-select v-model="queryParam.offerCategory" placeholder="请选择活动分类">
+                                <a-select-option value="BANK">银行</a-select-option>
+                                <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
+                                <a-select-option value="BROKER">券商</a-select-option>
+                            </a-select>
+                        </a-form-item>
+                    </a-col>
+
+                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                        <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
+                            <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
+                            <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
+                            <a-button @click="handleAdd" type="primary" icon="plus" style="margin-left: 8px">新增</a-button>
+                        </span>
+                    </a-col>
+                </a-row>
+            </a-form>
+        </div>
+        <!-- 查询区域-END -->
+
+        <!-- table区域-begin -->
+        <div>
+        <a-table
+            ref="table"
+            size="middle"
+            :scroll="{x:auto}"
+            bordered
+            rowKey="id"
+            :columns="columns"
+            :dataSource="dataSource"
+            :pagination="ipagination"
+            :loading="loading"
+            class="j-table-force-nowrap"
+            @change="handleTableChange">
+
+            <template slot="htmlSlot" slot-scope="text">
+                <div v-html="text"></div>
+            </template>
+
+            <template slot="linkSlot" slot-scope="text,record">
+                <a-tooltip>
+                    <template #title>{{record.offerDescription}}</template>
+                    <a :href="record.offerUrl" target="_blank">{{text}}</a>
+                </a-tooltip>
+            </template>
+
+            <template slot="imgSlot" slot-scope="text,record">
+                <span v-if="!text" style="font-size: 12px;font-style: italic;">无图片</span>
+                <img v-else :src="getImgView(text)" :preview="record.id" height="25px" alt="" style="max-width:80px;font-size: 12px;font-style: italic;"/>
+            </template>
+
+
+            <template slot="fileSlot" slot-scope="text">
+                <span v-if="!text" style="font-size: 12px;font-style: italic;">无文件</span>
+                <a-button v-else :ghost="true" type="primary" icon="download" size="small" @click="downloadFile(text)">下载</a-button>
+            </template>
+
+            <span slot="action" slot-scope="text, record">
+                <a @click="handleEdit(record)">编辑</a>
+
+                <a-divider type="vertical" />
+                <a-dropdown>
+                    <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
+                    <a-menu slot="overlay">
+                        <a-menu-item>
+                            <a @click="handleDetail(record)">详情</a>
+                        </a-menu-item>
+                        <a-menu-item>
+                            <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
+                                <a>删除</a>
+                            </a-popconfirm>
+                        </a-menu-item>
+                    </a-menu>
+                </a-dropdown>
+            </span>
+        </a-table>
+    </div>
+
+    <user-offer-modal ref="modalForm" @ok="modalFormOk"></user-offer-modal>
+    </a-card>
+</template>
+
+<script>
+import '@/assets/less/TableExpand.less'
+import { mixinDevice } from '@/utils/mixin'
+import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+import UserOfferModal from './modules/UserOfferModal'
+import { offerCategory, userOfferState } from '@/utils/enums'
+
+export default {
+    name: 'UserOfferList',
+    mixins: [JeecgListMixin, mixinDevice],
+    components: {
+        UserOfferModal
+    },
+    data () {
+        return {
+            description: '用户参与活动管理页面',
+            // 表头
+            columns: [
+                {
+                    title:'用户名',
+                    align:"center",
+                    dataIndex: 'username'
+                },
+                {
+                    title:'状态',
+                    align:"center",
+                    dataIndex: 'status',
+                    customRender: function (text) {
+                        return userOfferState(text);
+                    }
+                },
+                {
+                    title:'活动分类',
+                    align:"center",
+                    dataIndex: 'offerCategory',
+                    customRender: function (text) {
+                        return offerCategory(text);
+                    }
+                },
+                {
+                    title:'活动标题',
+                    align:"center",
+                    dataIndex: 'offerTitle',
+                    scopedSlots: {customRender: 'linkSlot'}
+                },
+                {
+                    title:'活动提供机构名称',
+                    align:"center",
+                    dataIndex: 'offerProvider'
+                },
+                {
+                    title:'奖励列表',
+                    align:"center",
+                    dataIndex: 'offerRewardList'
+                },
+                {
+                    title:'权益列表',
+                    align:"center",
+                    dataIndex: 'offerBenefitList'
+                },
+                {
+                    title:'审批时间',
+                    align:"center",
+                    dataIndex: 'approvalTime'
+                },
+                {
+                    title:'完成时间',
+                    align:"center",
+                    dataIndex: 'completedTime'
+                },
+                {
+                    title:'创建时间',
+                    align:"center",
+                    dataIndex: 'createdAt'
+                },
+                {
+                    title:'更新时间',
+                    align:"center",
+                    dataIndex: 'updatedAt'
+                },
+                {
+                    title: '操作',
+                    dataIndex: 'action',
+                    align:"center",
+                    fixed:"right",
+                    width:147,
+                    scopedSlots: { customRender: 'action' }
+                }
+            ],
+            url: {
+                list: "/manage/userOffer/list",
+                delete: "/manage/userOffer/delete",
+                deleteBatch: "/manage/userOffer/deleteBatch",
+                exportXlsUrl: "/manage/userOffer/exportXls",
+                importExcelUrl: "manage/userOffer/importExcel",
+
+            },
+            dictOptions: {},
+            superFieldList: [],
+            isorter:{
+                column: 'id',
+                order: 'desc',
+            },
+        }
+    },
+    created() {
+        this.getSuperFieldList();
+    },
+    computed: {
+        importExcelUrl: function(){
+            return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
+        },
+    },
+    methods: {
+
+
+        initDictConfig() {
+        },
+
+        getSuperFieldList() {
+            let fieldList = [];
+            fieldList.push({type:'int',value:'userId',text:'用户ID'})
+            fieldList.push({type:'int',value:'offerId',text:'活动ID'})
+            fieldList.push({type:'string',value:'status',text:'状态（APPLYING: 申请中, COMPLETED: 已完成, REJECTED: 已拒绝, REWARDING: 领取奖励中）'})
+            fieldList.push({type:'string',value:'offerCategory',text:'活动分类（BANK：银行，CREDIT_CARD：信用卡，BROKER：券商）'})
+            fieldList.push({type:'string',value:'offerTitle',text:'活动标题'})
+            fieldList.push({type:'string',value:'offerDescription',text:'活动描述'})
+            fieldList.push({type:'string',value:'offerProvider',text:'活动提供机构名称'})
+            fieldList.push({type:'string',value:'offerUrl',text:'活动链接URL'})
+            fieldList.push({type:'string',value:'offerRewardList',text:'奖励列表（JSON）'})
+            fieldList.push({type:'string',value:'offerBenefitList',text:'权益列表（JSON）'})
+            fieldList.push({type:'date',value:'approvalTime',text:'审批时间'})
+            fieldList.push({type:'date',value:'completedTime',text:'完成时间'})
+            fieldList.push({type:'date',value:'createdAt',text:'创建时间'})
+            fieldList.push({type:'date',value:'updatedAt',text:'更新时间'})
+            this.superFieldList = fieldList
+        }
+    }
+ }
+</script>
+<style scoped>
+    @import '~@assets/less/common.less';
+</style>

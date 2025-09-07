@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.system.mapper.SysUserRoleMapper">
+    <select id="getSysUserRoleListByUserIds" resultType="org.jeecg.modules.system.vo.UserRoleVo">
+        SELECT ur.user_id, r.role_name, r.role_code FROM `sys_user_role` AS ur, `sys_role` AS r WHERE r.id = ur.role_id
+        <if test="userIds != null and userIds.size() > 0">
+            AND ur.user_id IN<foreach collection="userIds" item="userId" index="index" open="(" close=")" separator=",">#{userId}</foreach>
+        </if>
+    </select>
+
+    <delete id="deleteUserRoleListByUserId">
+        DELETE FROM `sys_user_role` WHERE `user_id` = #{userId}
+    </delete>
+</mapper>

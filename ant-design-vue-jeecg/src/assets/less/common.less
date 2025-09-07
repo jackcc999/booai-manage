@@ -1,0 +1,223 @@
+/*列表上方操作按钮区域*/
+.ant-card-body .table-operator {
+    margin-bottom: 8px;
+}
+
+/** Button按钮间距 */
+.table-operator .ant-btn {
+    margin: 0 8px 8px 0;
+}
+
+.table-operator .ant-btn-group .ant-btn {
+    margin: 0;
+}
+
+.table-operator .ant-btn-group .ant-btn:last-child {
+    margin: 0 8px 8px 0;
+}
+
+/*列表td的padding设置 可以控制列表大小*/
+.ant-table-tbody .ant-table-row td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/*列表页面弹出modal*/
+.ant-modal-cust-warp {
+    height: 100%
+}
+
+/*弹出modal Y轴滚动条*/
+.ant-modal-cust-warp .ant-modal-body {
+    height: calc(100% - 110px) !important;
+    overflow-y: auto
+}
+
+/*弹出modal 先有content后有body 故滚动条控制在body上*/
+.ant-modal-cust-warp .ant-modal-content {
+    height: 90% !important;
+    overflow-y: hidden
+}
+
+/*列表中有图片的加这个样式 参考用户管理*/
+.anty-img-wrap {
+    height: 25px;
+    position: relative;
+}
+
+.anty-img-wrap>img {
+    max-height: 100%;
+}
+
+/*列表中范围查询样式*/
+.query-group-cust {
+    width: calc(50% - 10px)
+}
+
+.query-group-split-cust:before {
+    content: "~";
+    width: 20px;
+    display: inline-block;
+    text-align: center
+}
+
+
+/*erp风格子表外框padding设置*/
+.ant-card-wider-padding.cust-erp-sub-tab>.ant-card-body {
+    padding: 5px 12px
+}
+
+/* 内嵌子表背景颜色 */
+.j-inner-table-wrapper /deep/ .ant-table-expanded-row .ant-table-wrapper .ant-table-tbody .ant-table-row {
+    background-color: #FFFFFF;
+}
+
+/**隐藏样式-modal确定按钮 */
+.jee-hidden {
+    display: none
+}
+
+.green {
+    color: #009900 !important;
+}
+
+.red {
+    color: #ff0000 !important;
+}
+
+.file-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 15px;
+    margin-right: 8px;
+    position: relative;
+    top: -1px;
+}
+
+.require.ant-form-item>.ant-form-item-label:before {
+    content: '*';
+    color: #ff0000;
+    margin-right: 3px;
+    font-weight: bold;
+    position: relative;
+    top: 3px;
+}
+
+.upload-file-btn {
+    background: #1890FF;
+    width: 64.5px;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+}
+
+.upload-file-btn:hover {
+    cursor: pointer;
+}
+
+.upload-file-btn .ant-upload {
+    color: #ffffff;
+}
+
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    height: 32px;
+    min-width: 40px;
+    display: inline-block;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: center;
+    background-color: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+
+.input-group-addon:first-child {
+    border-right: 0;
+}
+
+.input-group-addon:last-child {
+    border-left: 0;
+}
+
+.file-view {
+    position: absolute;
+    right: 72px;
+    font-size: 12px;
+    z-index: 9999;
+}
+
+
+.fix-form .ant-row .ant-form-item-label {
+    width: 100px;
+    flex: none;
+}
+
+.fix-form .ant-row .ant-form-item-control-wrapper {
+    max-width: 110%;
+    flex: 1;
+}
+
+.search-box {
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+    border-radius: 4px;
+    margin-left: 85px;
+    margin-top: -4px;
+    padding: 4px 0;
+    position: absolute;
+    z-index: 99999;
+    background-color: #ffffff;
+}
+
+.search-box div {
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 12px;
+    cursor: pointer;
+    height: 32px;
+}
+
+.search-box div:hover {
+    background-color: #e6f7ff;
+}
+
+
+.sk-spinner-pulse {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    background-color: #008000;
+    border-radius: 100%;
+    -webkit-animation: sk-pulse-scale-out 2s infinite ease-in-out;
+    animation: sk-pulse-scale-out 2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-pulse-scale-out {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes sk-pulse-scale-out {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+    }
+}

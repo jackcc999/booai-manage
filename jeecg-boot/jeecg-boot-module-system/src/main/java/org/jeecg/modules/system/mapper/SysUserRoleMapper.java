@@ -1,0 +1,45 @@
+package org.jeecg.modules.system.mapper;
+
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.jeecg.modules.system.entity.SysUserRole;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.jeecg.modules.system.vo.UserRoleVo;
+
+/**
+ * <p>
+ * 用户角色表 Mapper 接口
+ * </p>
+ *
+ * @Author scott
+ * @since 2018-12-21
+ */
+public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
+
+    /**
+     * 通过用户账号查询角色集合
+     * @param username 用户账号名称
+     * @return List<String>
+     */
+	@Select("select role_code from sys_role where id in (select role_id from sys_user_role where user_id = (select id from sys_user where username=#{username}))")
+	List<String> getRoleByUserName(@Param("username") String username);
+
+	/**
+     * 通过用户账号查询角色Id集合
+     * @param username 用户账号名称
+     * @return List<String>
+     */
+	@Select("select id from sys_role where id in (select role_id from sys_user_role where user_id = (select id from sys_user where username=#{username}))")
+	List<String> getRoleIdByUserName(@Param("username") String username);
+
+	@Select("select u.id from sys_user u inner join sys_user_role sur on u.id = sur.user_id and sur.role_id = #{roleId}")
+	List<String> selectUserIdsByRoleId(Long roleId);
+
+	@Select("SELECT `role_id` FROM `sys_user_role` WHERE `user_id` = #{userId}")
+	public List<String> getSysUserRoleIdsByUserId(@Param("userId") String userId);
+
+	public List<UserRoleVo> getSysUserRoleListByUserIds(@Param("userIds") List<String> userIds);
+
+	public int deleteUserRoleListByUserId(@Param("userId") String userId);
+}
