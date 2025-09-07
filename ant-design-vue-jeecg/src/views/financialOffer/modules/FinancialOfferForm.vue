@@ -39,7 +39,7 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="权益列表" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="benefitList">
-                            <a-textarea v-model="model.benefitList" rows="4" placeholder='示例:[{"name":"权益名称","description":"权益描述"}]' />
+                            <j-editor v-model="model.benefitList" />
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
@@ -177,12 +177,6 @@ export default {
                 ],
                 provider: [
                     { required: true, message: '请输入活动提供机构名称' },
-                ],
-                rewardList: [
-                    { required: true, message: '请输入奖励列表' },
-                ],
-                benefitList: [
-                    { required: true, message: '请输入权益列表' },
                 ],
                 url: [
                     { required: true, message: '请输入活动链接URL' },

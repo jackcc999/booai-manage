@@ -88,37 +88,20 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody FinancialOffer financialOffer)
 	{
-		if(StringUtil.isEmpty(financialOffer.getRewardList()))
+		if(StringUtil.isNotEmpty(financialOffer.getRewardList()))
 		{
-			return Result.error("奖励列表不能为空", "");
+			List<RewardItemDTO> rewardItemList = JsonUtil.toList(financialOffer.getRewardList(), RewardItemDTO.class);
+			if(rewardItemList == null)
+			{
+				return Result.error("奖励列表格式错误", "");
+			}
+
+			if(rewardItemList.size() == 0)
+			{
+				return Result.error("奖励列表不能为空", "");
+			}
 		}
 
-		if(StringUtil.isEmpty(financialOffer.getBenefitList()))
-		{
-			return Result.error("权益列表不能为空", "");
-		}
-
-		List<RewardItemDTO> rewardItemList = JsonUtil.toList(financialOffer.getRewardList(), RewardItemDTO.class);
-		if(rewardItemList == null)
-		{
-			return Result.error("奖励列表格式错误", "");
-		}
-
-		if(rewardItemList.size() == 0)
-		{
-			return Result.error("奖励列表不能为空", "");
-		}
-
-		List<BenefitItemDTO> benefitItemList = JsonUtil.toList(financialOffer.getBenefitList(), BenefitItemDTO.class);
-		if(benefitItemList == null)
-		{
-			return Result.error("权益列表格式错误", "");
-		}
-
-		if(benefitItemList.size() == 0)
-		{
-			return Result.error("权益列表不能为空", "");
-		}
 
 		financialOfferService.save(financialOffer);
 		return Result.OK("添加成功！");
