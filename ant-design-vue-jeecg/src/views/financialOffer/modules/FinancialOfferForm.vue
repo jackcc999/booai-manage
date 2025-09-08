@@ -288,12 +288,3 @@ export default {
     }
 }
 </script>
-<style type="text/css">
-    .w24 .ant-form-item-label {
-        width: 10.4166%;
-    }
-
-    .w24 .ant-form-item-control-wrapper {
-        width: 83.3%;
-    }
-</style>

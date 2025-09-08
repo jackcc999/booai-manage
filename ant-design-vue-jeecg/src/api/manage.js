@@ -280,7 +280,7 @@ export function uploadAction(url, parameter){
 
 export function uploadFileAction(params) {
   return axios({
-    url: '/v2/files/doUpload',
+    url: '/files/doUpload',
     data: params,
     method:'post' ,
     headers: {
