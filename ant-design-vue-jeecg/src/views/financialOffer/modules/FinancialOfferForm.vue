@@ -4,8 +4,8 @@
             <a-form-model ref="form" :model="model" :rules="validatorRules" slot="detail">
                 <a-row>
                     <a-col :span="12">
-                        <a-form-model-item label="活动分类" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="category">
-                            <a-select v-model="model.category" placeholder="请选择活动分类">
+                        <a-form-model-item label="卡分类" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="category">
+                            <a-select v-model="model.category" placeholder="请选择卡分类">
                                 <a-select-option value="BANK">银行</a-select-option>
                                 <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
                                 <a-select-option value="BROKER">券商</a-select-option>
@@ -18,59 +18,18 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
-                        <a-form-model-item label="标题" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="title">
-                            <a-input v-model="model.title" placeholder="请输入标题"  ></a-input>
+                        <a-form-model-item label="开户活动标题" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="title">
+                            <a-input v-model="model.title" placeholder="请输入开户活动标题"  ></a-input>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
-                        <a-form-model-item label="描述" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="description">
-                            <j-editor v-model="model.description" placeholder="请输入描述" />
+                        <a-form-model-item label="金融机构名称" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="provider">
+                            <a-input v-model="model.provider" placeholder="请输入金融机构名称"  ></a-input>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
-                        <a-form-model-item label="活动提供机构名称" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="provider">
-                            <a-input v-model="model.provider" placeholder="请输入活动提供机构名称"  ></a-input>
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="奖励列表" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="rewardList">
-                            <a-textarea v-model="model.rewardList" rows="4" placeholder='示例:[{"name":"奖励名称","description":"奖励描述","estimatedValue":"估算价值","rights":"权益","reward":"奖励"}]' />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="权益列表" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="benefitList">
-                            <j-editor v-model="model.benefitList" />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="活动链接URL" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="url">
-                            <a-input v-model="model.url" placeholder="请输入活动链接URL"  ></a-input>
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="活动截止日期" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="expirationDate">
-                            <j-date placeholder="请选择活动截止日期" v-model="model.expirationDate"    style="width: 100%" />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="排序" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="sortOrder">
-                            <a-input-number v-model="model.sortOrder" placeholder="请输入排序因子，值越小越靠前" style="width: 100%" />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="消费金额要求" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="spendingAmount">
-                            <a-input-group compact>
-                                <a-input-number v-model="model.spendingAmount" placeholder="请输入消费金额要求" style="width:calc(100% - 60px)" />
-                                <span class="input-group-addon" style="width: 60px;">美元</span>
-                            </a-input-group>
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="完成消费要求的时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="spendingDurationDays">
-                            <a-input-group compact>
-                                <a-input-number v-model="model.spendingDurationDays" placeholder="请输入完成消费要求的时间" style="width: calc(100% - 45px)" />
-                                <span class="input-group-addon" style="width: 45px;">天</span>
-                            </a-input-group>
+                        <a-form-model-item label="活动URL链接" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="url">
+                            <a-input v-model="model.url" placeholder="请输入活动URL链接"  ></a-input>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
@@ -82,18 +41,18 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
-                        <a-form-model-item label="完成存款要求的时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="depositDurationDays">
+                        <a-form-model-item label="存款要求时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="depositDurationDays">
                             <a-input-group compact>
-                                <a-input-number v-model="model.depositDurationDays" placeholder="请输入完成存款要求的时间" style="width:calc(100% - 45px)"  />
+                                <a-input-number v-model="model.depositDurationDays" placeholder="请输入存款要求时间" style="width:calc(100% - 45px)"  />
                                 <span class="input-group-addon" style="width: 45px;">天</span>
                             </a-input-group>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
-                        <a-form-model-item label="年费金额" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="annualFee">
+                        <a-form-model-item label="存款持有天数" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="depositHoldDays">
                             <a-input-group compact>
-                                <a-input-number v-model="model.annualFee" placeholder="请输入年费金额" style="width:calc(100% - 60px)" />
-                                <span class="input-group-addon" style="width: 60px;">美元</span>
+                                <a-input-number v-model="model.depositHoldDays" placeholder="请输入存款持有天数" style="width:calc(100% - 45px)"  />
+                                <span class="input-group-addon" style="width: 45px;">天</span>
                             </a-input-group>
                         </a-form-model-item>
                     </a-col>
@@ -106,8 +65,19 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
-                        <a-form-model-item label="返现说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="returnRemark">
-                            <a-input v-model="model.returnRemark" placeholder="请输入返现说明"  ></a-input>
+                        <a-form-model-item label="消费金额要求" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="spendingAmount">
+                            <a-input-group compact>
+                                <a-input-number v-model="model.spendingAmount" placeholder="请输入消费金额要求" style="width:calc(100% - 60px)" />
+                                <span class="input-group-addon" style="width: 60px;">美元</span>
+                            </a-input-group>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="消费要求时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="spendingDurationDays">
+                            <a-input-group compact>
+                                <a-input-number v-model="model.spendingDurationDays" placeholder="请输入消费要求时间" style="width: calc(100% - 45px)" />
+                                <span class="input-group-addon" style="width: 45px;">天</span>
+                            </a-input-group>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
@@ -116,13 +86,76 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
+                        <a-form-model-item label="活动截止日期" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="expirationDate">
+                            <j-date placeholder="请选择活动截止日期" v-model="model.expirationDate"    style="width: 100%" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="年费金额" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="annualFee">
+                            <a-input-group compact>
+                                <a-input-number v-model="model.annualFee" placeholder="请输入年费金额" style="width:calc(100% - 60px)" />
+                                <span class="input-group-addon" style="width: 60px;">美元</span>
+                            </a-input-group>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="24">
+                        <a-form-model-item label="年费说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="annualRemark">
+                            <j-editor v-model="model.annualRemark" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="月费金额" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="monthFee">
+                            <a-input-group compact>
+                                <a-input-number v-model="model.monthFee" placeholder="请输入月费金额" style="width:calc(100% - 60px)" />
+                                <span class="input-group-addon" style="width: 60px;">美元</span>
+                            </a-input-group>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="24">
+                        <a-form-model-item label="月费说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="monthRemark">
+                            <j-editor v-model="model.monthRemark" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="24">
+                        <a-form-model-item label="奖励列表" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="rewardList">
+                            <j-editor v-model="model.rewardList" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="24">
+                        <a-form-model-item label="权益列表" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="benefitList">
+                            <j-editor v-model="model.benefitList" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="24">
+                        <a-form-model-item label="活动描述" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="description">
+                            <j-editor v-model="model.description" placeholder="请输入活动描述" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="排序" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="sortOrder">
+                            <a-input-number v-model="model.sortOrder" placeholder="请输入排序因子，值越小越靠前" style="width: 100%" />
+                        </a-form-model-item>
+                    </a-col>
+
+
+
+
+
+
+                    <a-col :span="24">
+                        <a-form-model-item label="返现说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="returnRemark">
+                            <j-editor v-model="model.returnRemark" placeholder="请输入返现说明"  />
+                        </a-form-model-item>
+                    </a-col>
+
+                    <a-col :span="12">
                         <a-form-model-item label="积分说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="pointRemark">
                             <a-input v-model="model.pointRemark" placeholder="请输入积分说明"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="免年费条件说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
-                            <a-input v-model="model.feeWaiverCondition" placeholder="请输入免年费条件说明"  ></a-input>
+                    <a-col :span="24">
+                        <a-form-model-item label="免年费条件说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
+                            <j-editor v-model="model.feeWaiverCondition" placeholder="请输入免年费条件说明"  />
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
@@ -255,3 +288,12 @@ export default {
     }
 }
 </script>
+<style type="text/css">
+    .w24 .ant-form-item-label {
+        width: 10.4166%;
+    }
+
+    .w24 .ant-form-item-control-wrapper {
+        width: 83.3%;
+    }
+</style>

@@ -142,11 +142,39 @@ public class FinancialOffer implements Serializable
     private java.lang.Integer depositDurationDays;
 
 	/**
+	 * 存款持有天数（天）
+	 */
+	@Excel(name = "存款持有天数（天）", width = 15)
+	@ApiModelProperty(value = "存款持有天数（天）")
+	private java.lang.Integer depositHoldDays;
+
+	/**
 	 * 年费金额
 	 */
 	@Excel(name = "年费金额", width = 15)
     @ApiModelProperty(value = "年费金额")
     private java.math.BigDecimal annualFee;
+
+	/**
+	 * 年费说明
+	 */
+	@Excel(name = "年费说明", width = 15)
+	@ApiModelProperty(value = "年费说明")
+	private String annualRemark;
+
+	/**
+	 * 月费金额
+	 */
+	@Excel(name = "月费金额", width = 15)
+	@ApiModelProperty(value = "月费金额")
+	private java.math.BigDecimal monthFee;
+
+	/**
+	 * 月费说明
+	 */
+	@Excel(name = "月费说明", width = 15)
+	@ApiModelProperty(value = "月费说明")
+	private String monthRemark;
 
 	/**
 	 * 免年费条件说明

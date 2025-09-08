@@ -73,21 +73,6 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody FinancialOffer financialOffer)
 	{
-		if(StringUtil.isNotEmpty(financialOffer.getRewardList()))
-		{
-			List<RewardItemDTO> rewardItemList = JsonUtil.toList(financialOffer.getRewardList(), RewardItemDTO.class);
-			if(rewardItemList == null)
-			{
-				return Result.error("奖励列表格式错误", "");
-			}
-
-			if(rewardItemList.size() == 0)
-			{
-				return Result.error("奖励列表不能为空", "");
-			}
-		}
-
-
 		financialOfferService.save(financialOffer);
 		return Result.OK("添加成功！");
 	}
@@ -104,21 +89,6 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody FinancialOffer financialOffer)
 	{
-		if(StringUtil.isNotEmpty(financialOffer.getRewardList()))
-		{
-			List<RewardItemDTO> rewardItemList = JsonUtil.toList(financialOffer.getRewardList(), RewardItemDTO.class);
-			if(rewardItemList == null)
-			{
-				return Result.error("奖励列表格式错误", "");
-			}
-
-			if(rewardItemList.size() == 0)
-			{
-				return Result.error("奖励列表不能为空", "");
-			}
-		}
-
-
 		financialOfferService.updateById(financialOffer);
 		return Result.OK("编辑成功");
 	}

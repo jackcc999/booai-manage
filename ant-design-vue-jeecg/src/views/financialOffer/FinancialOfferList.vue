@@ -4,15 +4,15 @@
         <div class="table-page-search-wrapper">
             <a-form layout="inline" @keyup.enter.native="searchQuery">
                 <a-row :gutter="24">
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
-                        <a-form-item label="活动标题">
-                            <j-input placeholder="请输入活动标题" v-model="queryParam.title"></j-input>
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
+                        <a-form-item label="开户活动标题">
+                            <j-input placeholder="请输入开户活动标题" v-model="queryParam.title"></j-input>
                         </a-form-item>
                     </a-col>
 
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
-                        <a-form-item label="活动分类">
-                            <a-select v-model="queryParam.category" placeholder="请选择活动分类">
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
+                        <a-form-item label="卡分类">
+                            <a-select v-model="queryParam.category" placeholder="请选择卡分类">
                                 <a-select-option value="BANK">银行</a-select-option>
                                 <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
                                 <a-select-option value="BROKER">券商</a-select-option>
@@ -20,7 +20,7 @@
                         </a-form-item>
                     </a-col>
 
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="活动状态">
                             <a-select v-model="queryParam.status" placeholder="请选择活动状态">
                                 <a-select-option :value="1">展示</a-select-option>
@@ -29,7 +29,7 @@
                         </a-form-item>
                     </a-col>
 
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
                             <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
                             <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
@@ -46,7 +46,7 @@
         <a-table
             ref="table"
             size="middle"
-            :scroll="{x:auto}"
+            :scroll="{x:true}"
             bordered
             rowKey="id"
             :columns="columns"
@@ -122,13 +122,7 @@ export default {
             // 表头
             columns: [
                 {
-                    title:'活动标题',
-                    align:"center",
-                    dataIndex: 'title',
-                    scopedSlots: {customRender: 'linkSlot'}
-                },
-                {
-                    title:'活动分类',
+                    title:'卡分类',
                     align:"center",
                     dataIndex: 'category',
                     customRender: function (text) {
@@ -136,53 +130,51 @@ export default {
                     }
                 },
                 {
-                    title:'活动机构',
+                    title:'二级分类',
+                    align:"center",
+                    dataIndex: 'childCategory',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
+                },
+                {
+                    title:'开户活动标题',
+                    align:"center",
+                    dataIndex: 'title',
+                    scopedSlots: {customRender: 'linkSlot'}
+                },
+                {
+                    title:'金融机构名称',
                     align:"center",
                     dataIndex: 'provider'
                 },
-                {
-                    title:'截止日期',
-                    align:"center",
-                    dataIndex: 'expirationDate'
-                },
-                {
-                    title:'消费金额要求',
-                    align:"center",
-                    dataIndex: 'spendingAmount',
-                    customRender: function (text) {
-                        return text + " 美元";
-                    }
-                },
-                {
-                    title:'完成消费要求时间',
-                    align:"center",
-                    dataIndex: 'spendingDurationDays',
-                    customRender: function (text) {
-                        return text + " 天";
-                    }
-                },
+                // {
+                //     title:'活动url链接',
+                //     align:"center",
+                //     dataIndex: 'url'
+                // },
                 {
                     title:'存款金额要求',
                     align:"center",
                     dataIndex: 'depositAmount',
                     customRender: function (text) {
-                        return text + " 美元";
+                        return text ? text + " 美元" : '-';
                     }
                 },
                 {
-                    title:'完成存款要求时间',
+                    title:'存款要求时间',
                     align:"center",
                     dataIndex: 'depositDurationDays',
                     customRender: function (text) {
-                        return text + " 天";
+                        return text ? text + " 天" : '-';
                     }
                 },
                 {
-                    title:'年费金额',
+                    title:'存款持有天数',
                     align:"center",
-                    dataIndex: 'annualFee',
+                    dataIndex: 'depositHoldDays',
                     customRender: function (text) {
-                        return text + " 美元";
+                        return text ? text + " 天" : '-';
                     }
                 },
                 {
@@ -190,19 +182,67 @@ export default {
                     align:"center",
                     dataIndex: 'returnAmount',
                     customRender: function (text) {
-                        return text + " 美元";
+                        return text ? text + " 美元" : '-';
+                    }
+                },
+                {
+                    title:'消费金额要求',
+                    align:"center",
+                    dataIndex: 'spendingAmount',
+                    customRender: function (text) {
+                        return text ? text + " 美元" : '-';
+                    }
+                },
+                {
+                    title:'消费要求时间',
+                    align:"center",
+                    dataIndex: 'spendingDurationDays',
+                    customRender: function (text) {
+                        return text ? text + " 天" : '-';
                     }
                 },
                 {
                     title:'获得积分',
                     align:"center",
                     dataIndex: 'getPoint',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
                 },
                 {
-                    title:'免年费条件说明',
+                    title:'活动截止日期',
                     align:"center",
-                    dataIndex: 'feeWaiverCondition'
+                    dataIndex: 'expirationDate'
                 },
+                {
+                    title:'年费金额',
+                    align:"center",
+                    dataIndex: 'annualFee',
+                    customRender: function (text) {
+                        return text ? text + " 美元" : '-';
+                    }
+                },
+                {
+                    title:'月费金额',
+                    align:"center",
+                    dataIndex: 'monthFee',
+                    customRender: function (text) {
+                        return text ? text + " 美元" : '-';
+                    }
+                },
+                // {
+                //     title:'返现金额',
+                //     align:"center",
+                //     dataIndex: 'returnAmount',
+                //     customRender: function (text) {
+                //         return text + " 美元";
+                //     }
+                // },
+                // {
+                //     title:'免年费条件说明',
+                //     align:"center",
+                //     dataIndex: 'feeWaiverCondition'
+                // },
                 {
                     title:'活动状态',
                     align:"center",
