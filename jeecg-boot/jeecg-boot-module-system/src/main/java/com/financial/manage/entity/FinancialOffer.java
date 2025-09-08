@@ -163,11 +163,25 @@ public class FinancialOffer implements Serializable
 	private java.math.BigDecimal returnAmount;
 
 	/**
+	 * 返现说明
+	 */
+	@Excel(name = "返现说明", width = 15)
+	@ApiModelProperty(value = "返现金额")
+	private String returnRemark;
+
+	/**
 	 * 获得积分
 	 */
 	@Excel(name = "获得积分", width = 15)
 	@ApiModelProperty(value = "获得积分")
 	private java.lang.Integer getPoint;
+
+	/**
+	 * 积分说明
+	 */
+	@Excel(name = "积分说明", width = 15)
+	@ApiModelProperty(value = "积分说明")
+	private String pointRemark;
 
 
 	/**

@@ -106,8 +106,18 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
+                        <a-form-model-item label="返现说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="returnRemark">
+                            <a-input v-model="model.returnRemark" placeholder="请输入返现说明"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
                         <a-form-model-item label="获得积分" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="getPoint">
                             <a-input-number v-model="model.getPoint" placeholder="请输入获得积分" style="width:100%" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="积分说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="pointRemark">
+                            <a-input v-model="model.pointRemark" placeholder="请输入积分说明"  ></a-input>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
