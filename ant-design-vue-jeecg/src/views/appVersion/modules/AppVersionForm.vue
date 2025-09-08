@@ -128,9 +128,11 @@ export default {
             this.visible = true;
         },
 
-        versionFileFileOk() {
+        versionFileFileOk(data) {
             this.model.url = data.id;
             this.model.fileName = data.filename;
+
+            console.log(this.model)
 
             this.$refs.form.validateField('url');
         },

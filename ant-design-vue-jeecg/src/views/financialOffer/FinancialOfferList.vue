@@ -139,7 +139,7 @@ export default {
                 },
                 {
                     title:'开户活动标题',
-                    align:"center",
+                    align:"left",
                     dataIndex: 'title',
                     scopedSlots: {customRender: 'linkSlot'}
                 },
@@ -210,6 +210,14 @@ export default {
                     }
                 },
                 {
+                    title:'积分说明',
+                    align:"center",
+                    dataIndex: 'pointRemark',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
+                },
+                {
                     title:'活动截止日期',
                     align:"center",
                     dataIndex: 'expirationDate'
@@ -223,6 +231,14 @@ export default {
                     }
                 },
                 {
+                    title:'年费说明',
+                    align:"center",
+                    dataIndex: 'annualRemark',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
+                },
+                {
                     title:'月费金额',
                     align:"center",
                     dataIndex: 'monthFee',
@@ -230,14 +246,30 @@ export default {
                         return text ? text + " 美元" : '-';
                     }
                 },
-                // {
-                //     title:'返现金额',
-                //     align:"center",
-                //     dataIndex: 'returnAmount',
-                //     customRender: function (text) {
-                //         return text + " 美元";
-                //     }
-                // },
+                {
+                    title:'月费说明',
+                    align:"center",
+                    dataIndex: 'monthRemark',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
+                },
+                {
+                    title:'返现金额',
+                    align:"center",
+                    dataIndex: 'returnAmount',
+                    customRender: function (text) {
+                        return text + " 美元";
+                    }
+                },
+                {
+                    title:'返现说明',
+                    align:"center",
+                    dataIndex: 'returnRemark',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
+                },
                 // {
                 //     title:'免年费条件说明',
                 //     align:"center",

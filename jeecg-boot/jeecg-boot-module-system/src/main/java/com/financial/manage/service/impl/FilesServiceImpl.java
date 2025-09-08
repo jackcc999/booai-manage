@@ -21,12 +21,6 @@ import java.util.stream.Collectors;
 public class FilesServiceImpl extends ServiceImpl<FilesMapper, Files> implements IFilesService
 {
     @Override
-    public Files getFilesInfoById(String id)
-    {
-        return baseMapper.getFilesInfoById(id);
-    }
-
-    @Override
     public List<Files> getFilesListByIds(List<String> ids)
     {
         if(ids == null || ids.size() == 0)

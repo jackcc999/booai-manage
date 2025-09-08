@@ -65,6 +65,11 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
+                        <a-form-model-item label="返现说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="returnRemark">
+                            <a-input v-model="model.returnRemark" placeholder="请输入返现说明"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
                         <a-form-model-item label="消费金额要求" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="spendingAmount">
                             <a-input-group compact>
                                 <a-input-number v-model="model.spendingAmount" placeholder="请输入消费金额要求" style="width:calc(100% - 60px)" />
@@ -86,6 +91,11 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
+                        <a-form-model-item label="积分说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="pointRemark">
+                            <a-input v-model="model.pointRemark" placeholder="请输入积分说明"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
                         <a-form-model-item label="活动截止日期" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="expirationDate">
                             <j-date placeholder="请选择活动截止日期" v-model="model.expirationDate"    style="width: 100%" />
                         </a-form-model-item>
@@ -98,9 +108,9 @@
                             </a-input-group>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="年费说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="annualRemark">
-                            <j-editor v-model="model.annualRemark" />
+                    <a-col :span="12">
+                        <a-form-model-item label="年费说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="annualRemark">
+                            <a-input v-model="model.annualRemark" placeholder="请输入年费说明"  ></a-input>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
@@ -111,9 +121,9 @@
                             </a-input-group>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="月费说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="monthRemark">
-                            <j-editor v-model="model.monthRemark" />
+                    <a-col :span="12">
+                        <a-form-model-item label="月费说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="monthRemark">
+                            <a-input v-model="model.monthRemark" placeholder="请输入月费说明"  ></a-input>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="24">
@@ -131,28 +141,11 @@
                             <j-editor v-model="model.description" placeholder="请输入活动描述" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="排序" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="sortOrder">
-                            <a-input-number v-model="model.sortOrder" placeholder="请输入排序因子，值越小越靠前" style="width: 100%" />
-                        </a-form-model-item>
-                    </a-col>
 
 
 
 
 
-
-                    <a-col :span="24">
-                        <a-form-model-item label="返现说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="returnRemark">
-                            <j-editor v-model="model.returnRemark" placeholder="请输入返现说明"  />
-                        </a-form-model-item>
-                    </a-col>
-
-                    <a-col :span="12">
-                        <a-form-model-item label="积分说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="pointRemark">
-                            <a-input v-model="model.pointRemark" placeholder="请输入积分说明"  ></a-input>
-                        </a-form-model-item>
-                    </a-col>
                     <a-col :span="24">
                         <a-form-model-item label="免年费条件说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
                             <j-editor v-model="model.feeWaiverCondition" placeholder="请输入免年费条件说明"  />

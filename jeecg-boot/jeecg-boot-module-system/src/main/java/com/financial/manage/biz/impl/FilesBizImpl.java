@@ -57,7 +57,7 @@ public class FilesBizImpl implements IFilesBiz
                     id = id.substring(0, idx);
                 }
 
-                Files files = filesService.getFilesInfoById(id);
+                Files files = filesService.getById(id);
                 if(files != null)
                 {
                     ContentType contentType = contentTypeService.getContentTypeByFilename(files.getFilename());
@@ -132,7 +132,7 @@ public class FilesBizImpl implements IFilesBiz
     @Override
     public FilesDTO getFileInfoById(String id)
     {
-        Files files = filesService.getFilesInfoById(id);
+        Files files = filesService.getById(id);
         if(files == null)
         {
             return null;

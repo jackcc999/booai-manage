@@ -14,7 +14,5 @@ import java.util.List;
  */
 public interface FilesMapper extends BaseMapper<Files>
 {
-    public Files getFilesInfoById(@Param("id") String id);
-
     public List<Files> getFilesListByIds(@Param("ids") List<String> ids);
 }

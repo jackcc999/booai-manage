@@ -21,7 +21,7 @@
         <a-table
             ref="table"
             size="middle"
-            :scroll="{x:auto}"
+            :scroll="{x:true}"
             bordered
             rowKey="id"
             :columns="columns"
@@ -42,9 +42,9 @@
             </template>
 
 
-            <template slot="fileSlot" slot-scope="text">
+            <template slot="fileSlot" slot-scope="text, record">
                 <span v-if="!text" style="font-size: 12px;font-style: italic;">无文件</span>
-                <a-button v-else :ghost="true" type="primary" icon="download" size="small" @click="downloadFile(text)">下载</a-button>
+                <a v-else :href="host + '/files/download?id=' + record.url">{{record.fileName}}</a>
             </template>
 
             <span slot="action" slot-scope="text, record">
@@ -112,7 +112,8 @@ export default {
                 {
                     title:'版本文件',
                     align:"center",
-                    dataIndex: 'url'
+                    dataIndex: 'url',
+                    scopedSlots: { customRender: 'fileSlot' }
                 },
                 {
                     title:'状态',
@@ -137,7 +138,6 @@ export default {
                 deleteBatch: "/manage/appVersion/deleteBatch",
                 exportXlsUrl: "/manage/appVersion/exportXls",
                 importExcelUrl: "manage/appVersion/importExcel",
-
             },
             dictOptions: {},
             superFieldList: [],
@@ -154,6 +154,9 @@ export default {
         importExcelUrl: function(){
             return `${window._CONFIG['domianURL']}/${this.url.importExcelUrl}`;
         },
+        host: function () {
+            return window._CONFIG['domianURL'];
+        }
     },
     methods: {
 

@@ -102,7 +102,7 @@ public class FilesManageController
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public void view(HttpServletResponse response, @RequestParam String id) throws Exception
     {
-        Files files = filesService.getFilesInfoById(id);
+        Files files = filesService.getById(id);
         if(files == null)
         {
             HttpServlet.say(Result.error("文件不存在", ""));
@@ -123,7 +123,7 @@ public class FilesManageController
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void download(@RequestParam String id) throws Exception
     {
-        Files files = filesService.getFilesInfoById(id);
+        Files files = filesService.getById(id);
         if(files == null)
         {
             HttpServlet.say(Result.error("文件不存在", ""));

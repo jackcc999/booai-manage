@@ -69,6 +69,13 @@ public class AppVersion implements Serializable
     private java.lang.String description;
 
 	/**
+	 * 文件名称
+	 */
+	@Excel(name = "文件名称", width = 15)
+	@ApiModelProperty(value = "文件名称")
+	private java.lang.String fileName;
+
+	/**
 	 * 版本文件
 	 */
 	@Excel(name = "版本文件", width = 15)

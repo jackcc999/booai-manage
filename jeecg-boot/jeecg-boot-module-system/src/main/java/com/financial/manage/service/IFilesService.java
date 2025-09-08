@@ -13,7 +13,5 @@ import java.util.List;
  */
 public interface IFilesService extends IService<Files>
 {
-    public Files getFilesInfoById(String id);
-
     public List<Files> getFilesListByIds(List<String> ids);
 }

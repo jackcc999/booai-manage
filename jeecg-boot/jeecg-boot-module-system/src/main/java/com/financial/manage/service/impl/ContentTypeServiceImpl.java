@@ -18,11 +18,16 @@ public class ContentTypeServiceImpl extends ServiceImpl<ContentTypeMapper, Conte
     @Override
     public ContentType getContentTypeByFilename(String filename)
     {
-        int index = filename.lastIndexOf('.');
-        String subfix = index == -1 ? ".default" : filename.substring(index);
+        ContentType contentType = new ContentType();
+        contentType.setCanView(0);
 
-        ContentType contentType = baseMapper.getContentTypeBySubfix(subfix);
-        return contentType == null ? getDefaultContentType() : contentType;
+        return contentType;
+
+//        int index = filename.lastIndexOf('.');
+//        String subfix = index == -1 ? ".default" : filename.substring(index);
+//
+//        ContentType contentType = baseMapper.getContentTypeBySubfix(subfix);
+//        return contentType == null ? getDefaultContentType() : contentType;
     }
 
     private ContentType getDefaultContentType()
