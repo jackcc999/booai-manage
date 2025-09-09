@@ -3,6 +3,9 @@ package com.financial.manage.service;
 import com.financial.manage.entity.FinancialOffer;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Description: financial_offer
  * @Author: jeecg-boot
@@ -11,5 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IFinancialOfferService extends IService<FinancialOffer>
 {
-
+    Map<Integer, String> getFinancialOfferMapByIds(List<Integer> ids);
 }
