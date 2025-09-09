@@ -108,7 +108,7 @@ export default {
                 {
                     title:'用户ID',
                     align:"center",
-                    dataIndex: 'userId'
+                    dataIndex: 'id'
                 },
                 {
                     title:'用户名',
