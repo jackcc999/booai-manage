@@ -103,9 +103,14 @@ export default {
                     dataIndex: 'userId'
                 },
                 {
+                    title:'用户名',
+                    align:"center",
+                    dataIndex: 'username'
+                },
+                {
                     title:'开户活动标题',
                     align:"left",
-                    dataIndex: 'title'
+                    dataIndex: 'offerTitle'
                 },
                 {
                     title:'创建时间',

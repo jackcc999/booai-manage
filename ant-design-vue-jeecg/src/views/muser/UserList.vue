@@ -106,6 +106,11 @@ export default {
             // 表头
             columns: [
                 {
+                    title:'用户ID',
+                    align:"center",
+                    dataIndex: 'userId'
+                },
+                {
                     title:'用户名',
                     align:"center",
                     dataIndex: 'username'

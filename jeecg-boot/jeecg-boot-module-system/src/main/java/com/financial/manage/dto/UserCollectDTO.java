@@ -8,5 +8,8 @@ import lombok.Data;
 public class UserCollectDTO extends UserCollect
 {
     @ApiModelProperty(value = "标题")
-    private java.lang.String title;
+    private String offerTitle;
+
+    @ApiModelProperty(value = "用户名")
+    private String username;
 }

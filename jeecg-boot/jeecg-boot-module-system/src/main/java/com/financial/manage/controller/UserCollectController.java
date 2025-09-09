@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.com.dgwl.tools.v2.util.BeanUtil;
 import com.financial.manage.dto.UserCollectDTO;
 import com.financial.manage.service.IFinancialOfferService;
+import com.financial.manage.service.IUserService;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
@@ -58,6 +59,9 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
 	@Autowired
 	private IFinancialOfferService financialOfferService;
 
+	@Autowired
+	private IUserService userService;
+
 
 	/**
 	 * 分页列表查询
@@ -78,11 +82,13 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
 		IPage<UserCollect> pageList = userCollectService.page(page, queryWrapper);
 
 		Map<Integer, String> financialMap = financialOfferService.getFinancialOfferMapByIds(pageList.getRecords().stream().map(UserCollect::getOfferId).collect(Collectors.toList()));
+		Map<Integer, String> userMap = userService.getUserMapByIds(pageList.getRecords().stream().map(UserCollect::getUserId).collect(Collectors.toList()));
 
 		Page<UserCollectDTO> pageInfo = new Page<>();
 		pageInfo.setTotal(pageList.getTotal()).setSize(pageSize).setCurrent(pageNo).setRecords(pageList.getRecords().stream().map(item -> {
 			UserCollectDTO dto = BeanUtil.copy(item, UserCollectDTO.class);
-			dto.setTitle(financialMap.get(item.getOfferId()));
+			dto.setOfferTitle(financialMap.get(item.getOfferId()));
+			dto.setUsername(userMap.get(item.getUserId()));
 
 			return dto;
 		}).collect(Collectors.toList()));
