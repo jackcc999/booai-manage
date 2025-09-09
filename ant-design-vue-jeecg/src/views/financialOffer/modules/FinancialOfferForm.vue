@@ -127,6 +127,11 @@
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="24">
+                        <a-form-model-item label="免年费条件说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
+                            <a-input v-model="model.feeWaiverCondition" placeholder="请输入免年费条件说明"  />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="24">
                         <a-form-model-item label="奖励列表" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="rewardList">
                             <j-editor v-model="model.rewardList" />
                         </a-form-model-item>
@@ -145,12 +150,6 @@
 
 
 
-
-                    <a-col :span="24">
-                        <a-form-model-item label="免年费条件说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
-                            <j-editor v-model="model.feeWaiverCondition" placeholder="请输入免年费条件说明"  />
-                        </a-form-model-item>
-                    </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="活动状态" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
                             <a-select v-model="model.status" placeholder="请选择状态">
