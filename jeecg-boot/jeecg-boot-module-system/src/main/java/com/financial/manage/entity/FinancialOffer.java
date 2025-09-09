@@ -211,6 +211,8 @@ public class FinancialOffer implements Serializable
 	@ApiModelProperty(value = "积分说明")
 	private String pointRemark;
 
+	@ApiModelProperty(value = "关键词 搜索用")
+	private String keyword;
 
 	/**
 	 * 活动状态：0-隐藏，1-展示

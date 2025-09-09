@@ -2,6 +2,7 @@ package com.financial.manage.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -73,6 +74,15 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody FinancialOffer financialOffer)
 	{
+		StringJoiner joiner = new StringJoiner(",");
+		joiner.add(financialOffer.getTitle());
+		joiner.add(financialOffer.getProvider());
+		joiner.add(financialOffer.getDepositAmount().toPlainString());
+		joiner.add(financialOffer.getReturnAmount().toString());
+		joiner.add(financialOffer.getGetPoint().toString());
+
+		financialOffer.setKeyword(joiner.toString());
+
 		financialOfferService.save(financialOffer);
 		return Result.OK("添加成功！");
 	}
@@ -89,6 +99,15 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody FinancialOffer financialOffer)
 	{
+		StringJoiner joiner = new StringJoiner(",");
+		joiner.add(financialOffer.getTitle());
+		joiner.add(financialOffer.getProvider());
+		joiner.add(financialOffer.getDepositAmount().toPlainString());
+		joiner.add(financialOffer.getReturnAmount().toString());
+		joiner.add(financialOffer.getGetPoint().toString());
+
+		financialOffer.setKeyword(joiner.toString());
+
 		financialOfferService.updateById(financialOffer);
 		return Result.OK("编辑成功");
 	}
