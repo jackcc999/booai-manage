@@ -20,7 +20,7 @@
                                 <a-select-option value="COMPLETED">已完成</a-select-option>
                                 <a-select-option value="REJECTED">已拒绝</a-select-option>
                                 <a-select-option value="REWARDING">领取奖励中</a-select-option>
-                                <a-select-option value="DEPOSITED">已存款）</a-select-option>
+                                <a-select-option value="DEPOSITED">已存款</a-select-option>
                             </a-select>
                         </a-form-model-item>
                     </a-col>

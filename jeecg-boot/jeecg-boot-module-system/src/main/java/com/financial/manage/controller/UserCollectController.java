@@ -14,6 +14,7 @@ import cn.com.dgwl.tools.v2.util.BeanUtil;
 import com.financial.manage.dto.UserCollectDTO;
 import com.financial.manage.service.IFinancialOfferService;
 import com.financial.manage.service.IUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
@@ -104,7 +105,7 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
 	 */
 	@AutoLog(value = "用户收藏-添加")
 	@ApiOperation(value="用户收藏-添加", notes="用户收藏-添加")
-	//@RequiresPermissions("com.financial:user_collect:add")
+	@RequiresPermissions("com.financial:user_collect:add")
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody UserCollect userCollect)
 	{
@@ -120,7 +121,7 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
 	 */
 	@AutoLog(value = "用户收藏-编辑")
 	@ApiOperation(value="用户收藏-编辑", notes="用户收藏-编辑")
-	//@RequiresPermissions("com.financial:user_collect:edit")
+	@RequiresPermissions("com.financial:user_collect:edit")
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody UserCollect userCollect)
 	{
@@ -136,7 +137,7 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
 	 */
 	@AutoLog(value = "用户收藏-通过id删除")
 	@ApiOperation(value="用户收藏-通过id删除", notes="用户收藏-通过id删除")
-	//@RequiresPermissions("com.financial:user_collect:delete")
+	@RequiresPermissions("com.financial:user_collect:delete")
 	@DeleteMapping(value = "/delete")
 	public Result<String> delete(@RequestParam(name="id",required=true) String id)
 	{
@@ -152,7 +153,7 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
 	 */
 	@AutoLog(value = "用户收藏-批量删除")
 	@ApiOperation(value="用户收藏-批量删除", notes="用户收藏-批量删除")
-	//@RequiresPermissions("com.financial:user_collect:deleteBatch")
+	@RequiresPermissions("com.financial:user_collect:deleteBatch")
 	@DeleteMapping(value = "/deleteBatch")
 	public Result<String> deleteBatch(@RequestParam(name="ids",required=true) String ids)
 	{
@@ -185,7 +186,7 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
     * @param request
     * @param userCollect
     */
-    //@RequiresPermissions("com.financial:user_collect:exportXls")
+    @RequiresPermissions("com.financial:user_collect:exportXls")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(HttpServletRequest request, UserCollect userCollect)
     {
@@ -199,7 +200,7 @@ public class UserCollectController extends JeecgController<UserCollect, IUserCol
     * @param response
     * @return
     */
-    //@RequiresPermissions("user_collect:importExcel")
+    @RequiresPermissions("user_collect:importExcel")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response)
     {

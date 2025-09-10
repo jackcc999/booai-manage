@@ -4,18 +4,19 @@
         <div class="table-page-search-wrapper">
             <a-form layout="inline" @keyup.enter.native="searchQuery">
                 <a-row :gutter="24">
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                    <a-col :xl="6" :lg="8" :md="8" :sm="24">
                         <a-form-item label="状态">
                             <a-select v-model="queryParam.status" placeholder="请选择状态">
                                 <a-select-option value="APPLYING">申请中</a-select-option>
                                 <a-select-option value="COMPLETED">已完成</a-select-option>
                                 <a-select-option value="REJECTED">已拒绝</a-select-option>
                                 <a-select-option value="REWARDING">领取奖励中</a-select-option>
+                                <a-select-option value="DEPOSITED">已存款</a-select-option>
                             </a-select>
                         </a-form-item>
                     </a-col>
 
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                    <a-col :xl="6" :lg="8" :md="8" :sm="24">
                         <a-form-item label="活动分类">
                             <a-select v-model="queryParam.offerCategory" placeholder="请选择活动分类">
                                 <a-select-option value="BANK">银行</a-select-option>
@@ -25,7 +26,7 @@
                         </a-form-item>
                     </a-col>
 
-                    <a-col :xl="5" :lg="6" :md="8" :sm="24">
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
                             <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
                             <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>

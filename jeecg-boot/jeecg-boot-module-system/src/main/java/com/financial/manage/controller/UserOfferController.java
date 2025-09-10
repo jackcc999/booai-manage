@@ -176,7 +176,7 @@ public class UserOfferController extends JeecgController<UserOffer, IUserOfferSe
     * @param request
     * @param userOffer
     */
-    //@RequiresPermissions("com.financial:user_offer:exportXls")
+    @RequiresPermissions("com.financial:user_offer:exportXls")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(HttpServletRequest request, UserOffer userOffer)
     {
@@ -190,7 +190,7 @@ public class UserOfferController extends JeecgController<UserOffer, IUserOfferSe
     * @param response
     * @return
     */
-    //@RequiresPermissions("user_offer:importExcel")
+    @RequiresPermissions("user_offer:importExcel")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response)
     {

@@ -56,7 +56,7 @@
             </template>
 
             <span slot="action" slot-scope="text, record">
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
+                <a-popconfirm v-has="'com.financial:user_collect:delete'" title="确定删除吗?" @confirm="() => handleDelete(record.id)">
                     <a>删除</a>
                 </a-popconfirm>
             </span>
