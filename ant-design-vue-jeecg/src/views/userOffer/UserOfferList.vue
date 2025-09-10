@@ -29,7 +29,6 @@
                         <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
                             <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
                             <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
-                            <a-button @click="handleAdd" type="primary" icon="plus" style="margin-left: 8px">新增</a-button>
                         </span>
                     </a-col>
                 </a-row>
@@ -72,7 +71,7 @@
             </template>
 
             <span slot="action" slot-scope="text, record">
-                <a @click="handleEdit(record)">编辑</a>
+                <a v-has="'com.financial:user_offer:edit'" @click="handleEdit(record)">编辑</a>
 
                 <a-divider type="vertical" />
                 <a-dropdown>
@@ -81,7 +80,7 @@
                         <a-menu-item>
                             <a @click="handleDetail(record)">详情</a>
                         </a-menu-item>
-                        <a-menu-item>
+                        <a-menu-item v-has="'com.financial:user_offer:delete'">
                             <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
                                 <a>删除</a>
                             </a-popconfirm>

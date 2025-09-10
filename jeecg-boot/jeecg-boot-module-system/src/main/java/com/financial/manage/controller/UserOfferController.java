@@ -12,6 +12,7 @@ import com.financial.manage.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.aspect.annotation.AutoLog;
 import org.jeecg.common.system.base.controller.JeecgController;
@@ -110,7 +111,7 @@ public class UserOfferController extends JeecgController<UserOffer, IUserOfferSe
 	 */
 	@AutoLog(value = "用户参与的活动-编辑")
 	@ApiOperation(value="用户参与的活动-编辑", notes="用户参与的活动-编辑")
-	//@RequiresPermissions("com.financial:user_offer:edit")
+	@RequiresPermissions("com.financial:user_offer:edit")
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody UserOffer userOffer)
 	{
@@ -126,7 +127,7 @@ public class UserOfferController extends JeecgController<UserOffer, IUserOfferSe
 	 */
 	@AutoLog(value = "用户参与的活动-通过id删除")
 	@ApiOperation(value="用户参与的活动-通过id删除", notes="用户参与的活动-通过id删除")
-	//@RequiresPermissions("com.financial:user_offer:delete")
+	@RequiresPermissions("com.financial:user_offer:delete")
 	@DeleteMapping(value = "/delete")
 	public Result<String> delete(@RequestParam(name="id",required=true) String id)
 	{
@@ -142,7 +143,7 @@ public class UserOfferController extends JeecgController<UserOffer, IUserOfferSe
 	 */
 	@AutoLog(value = "用户参与的活动-批量删除")
 	@ApiOperation(value="用户参与的活动-批量删除", notes="用户参与的活动-批量删除")
-	//@RequiresPermissions("com.financial:user_offer:deleteBatch")
+	@RequiresPermissions("com.financial:user_offer:deleteBatch")
 	@DeleteMapping(value = "/deleteBatch")
 	public Result<String> deleteBatch(@RequestParam(name="ids",required=true) String ids)
 	{

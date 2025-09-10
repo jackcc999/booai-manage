@@ -3,72 +3,115 @@
         <j-form-container :disabled="formDisabled">
             <a-form-model ref="form" :model="model" :rules="validatorRules" slot="detail">
                 <a-row>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="用户ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="userId">
                             <a-input-number v-model="model.userId" placeholder="请输入用户ID" style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="活动ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerId">
                             <a-input-number v-model="model.offerId" placeholder="请输入活动ID" style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="状态（APPLYING: 申请中, COMPLETED: 已完成, REJECTED: 已拒绝, REWARDING: 领取奖励中）" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
-                            <a-input v-model="model.status" placeholder="请输入状态（APPLYING: 申请中, COMPLETED: 已完成, REJECTED: 已拒绝, REWARDING: 领取奖励中）"  ></a-input>
+                    <a-col :span="12">
+                        <a-form-model-item label="状态" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
+                            <a-select v-model="model.offerCategory" placeholder="请选择状态">
+                                <a-select-option value="APPLYING">申请中</a-select-option>
+                                <a-select-option value="COMPLETED">已完成</a-select-option>
+                                <a-select-option value="REJECTED">已拒绝</a-select-option>
+                                <a-select-option value="REWARDING">领取奖励中</a-select-option>
+                                <a-select-option value="DEPOSITED">已存款）</a-select-option>
+                            </a-select>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="活动分类（BANK：银行，CREDIT_CARD：信用卡，BROKER：券商）" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerCategory">
-                            <a-input v-model="model.offerCategory" placeholder="请输入活动分类（BANK：银行，CREDIT_CARD：信用卡，BROKER：券商）"  ></a-input>
+                    <a-col :span="12">
+                        <a-form-model-item label="活动分类" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerCategory">
+                            <a-select v-model="model.offerCategory" placeholder="请选择活动分类">
+                                <a-select-option value="BANK">银行</a-select-option>
+                                <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
+                                <a-select-option value="BROKER">券商</a-select-option>
+                            </a-select>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
+                        <a-form-model-item label="二级分类" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerChildCategory">
+                            <a-input v-model="model.offerChildCategory" placeholder="请输入二级分类"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
                         <a-form-model-item label="活动标题" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerTitle">
                             <a-input v-model="model.offerTitle" placeholder="请输入活动标题"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="活动描述" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerDescription">
                             <a-textarea v-model="model.offerDescription" rows="4" placeholder="请输入活动描述" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="活动提供机构名称" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerProvider">
                             <a-input v-model="model.offerProvider" placeholder="请输入活动提供机构名称"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="活动链接URL" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerUrl">
                             <a-input v-model="model.offerUrl" placeholder="请输入活动链接URL"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="奖励列表（JSON）" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerRewardList">
-                            <a-textarea v-model="model.offerRewardList" rows="4" placeholder="请输入奖励列表（JSON）" />
+                    <a-col :span="12">
+                        <a-form-model-item label="奖励列表" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerRewardList">
+                            <a-textarea v-model="model.offerRewardList" rows="4" placeholder="请输入奖励列表" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="权益列表（JSON）" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerBenefitList">
-                            <a-textarea v-model="model.offerBenefitList" rows="4" placeholder="请输入权益列表（JSON）" />
+                    <a-col :span="12">
+                        <a-form-model-item label="权益列表" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerBenefitList">
+                            <a-textarea v-model="model.offerBenefitList" rows="4" placeholder="请输入权益列表" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
+                        <a-form-model-item label="开户银行/机构" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="bankName">
+                            <a-input v-model="model.bankName" placeholder="请输入开户银行/机构"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="开户日期" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="openDate">
+                            <j-date placeholder="请选择开户日期" v-model="model.openDate"    style="width: 100%" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="投资金额" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="investment">
+                            <a-input v-model="model.investment" placeholder="请输入投资金额"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="返现/积分" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="returnPoint">
+                            <a-input v-model="model.returnPoint" placeholder="请输入返现/积分"  ></a-input>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="记录来源" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="source">
+                            <a-select v-model="model.source" placeholder="请选择记录来源">
+                                <a-select-option :value="0">我已开户</a-select-option>
+                                <a-select-option :value="1">我要开户</a-select-option>
+                            </a-select>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
                         <a-form-model-item label="审批时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="approvalTime">
                             <j-date placeholder="请选择审批时间" v-model="model.approvalTime"    style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="完成时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="completedTime">
                             <j-date placeholder="请选择完成时间" v-model="model.completedTime"    style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="创建时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="createdAt">
                             <j-date placeholder="请选择创建时间" v-model="model.createdAt"    style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="更新时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="updatedAt">
                             <j-date placeholder="请选择更新时间" v-model="model.updatedAt"    style="width: 100%" />
                         </a-form-model-item>
