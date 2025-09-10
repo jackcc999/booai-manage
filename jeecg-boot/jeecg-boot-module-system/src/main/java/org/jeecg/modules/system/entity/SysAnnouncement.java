@@ -33,6 +33,16 @@ public class SysAnnouncement implements Serializable {
     @Excel(name = "标题", width = 15)
     private java.lang.String titile;
     /**
+     * 图片
+     */
+    @Excel(name = "图片", width = 15)
+    private String image;
+    /**
+     * 链接
+     */
+    @Excel(name = "链接", width = 15)
+    private String link;
+    /**
      * 内容
      */
     @Excel(name = "内容", width = 30)
@@ -62,7 +72,7 @@ public class SysAnnouncement implements Serializable {
     @Excel(name = "优先级", width = 15, dicCode = "priority")
     @Dict(dicCode = "priority")
     private java.lang.String priority;
-    
+
     /**
      * 消息类型1:通知公告2:系统消息
      */

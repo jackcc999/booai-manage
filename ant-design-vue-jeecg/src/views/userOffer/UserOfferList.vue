@@ -57,10 +57,7 @@
             </template>
 
             <template slot="linkSlot" slot-scope="text,record">
-                <a-tooltip>
-                    <template #title>{{record.offerDescription}}</template>
-                    <a :href="record.offerUrl" target="_blank">{{text}}</a>
-                </a-tooltip>
+                <a @click="handleOfferInfo(record)">{{text}}</a>
             </template>
 
             <template slot="imgSlot" slot-scope="text,record">
@@ -96,6 +93,7 @@
     </div>
 
     <user-offer-modal ref="modalForm" @ok="modalFormOk"></user-offer-modal>
+    <financial-offer-modal ref="offerInfo"></financial-offer-modal>
     </a-card>
 </template>
 
@@ -104,13 +102,16 @@ import '@/assets/less/TableExpand.less'
 import { mixinDevice } from '@/utils/mixin'
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import UserOfferModal from './modules/UserOfferModal'
+import FinancialOfferModal from '@/views/financialOffer/modules/FinancialOfferModal'
 import { offerCategory, userOfferState } from '@/utils/enums'
+
+
 
 export default {
     name: 'UserOfferList',
     mixins: [JeecgListMixin, mixinDevice],
     components: {
-        UserOfferModal
+        UserOfferModal,FinancialOfferModal
     },
     data () {
         return {
@@ -118,9 +119,24 @@ export default {
             // 表头
             columns: [
                 {
-                    title:'用户名',
+                    title:'ID',
+                    align:"center",
+                    dataIndex: 'id'
+                },
+                {
+                    title:'开户用户',
                     align:"center",
                     dataIndex: 'username'
+                },
+                {
+                    title:'开户活动ID',
+                    align:"center",
+                    dataIndex: 'offerId'
+                },
+                {
+                    title:'开户机构名称',
+                    align:"center",
+                    dataIndex: 'offerProvider'
                 },
                 {
                     title:'状态',
@@ -130,12 +146,20 @@ export default {
                         return userOfferState(text);
                     }
                 },
+                // {
+                //     title:'活动分类',
+                //     align:"center",
+                //     dataIndex: 'offerCategory',
+                //     customRender: function (text) {
+                //         return offerCategory(text);
+                //     }
+                // },
                 {
-                    title:'活动分类',
+                    title:'二级分类',
                     align:"center",
-                    dataIndex: 'offerCategory',
+                    dataIndex: 'offerChildCategory',
                     customRender: function (text) {
-                        return offerCategory(text);
+                        return text ? text : '-';
                     }
                 },
                 {
@@ -144,40 +168,64 @@ export default {
                     dataIndex: 'offerTitle',
                     scopedSlots: {customRender: 'linkSlot'}
                 },
+
                 {
-                    title:'活动提供机构名称',
+                    title:'开户日期',
                     align:"center",
-                    dataIndex: 'offerProvider'
+                    dataIndex: 'openDate',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
                 },
                 {
-                    title:'奖励列表',
+                    title:'入金金额',
                     align:"center",
-                    dataIndex: 'offerRewardList'
+                    dataIndex: 'investment',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
                 },
                 {
-                    title:'权益列表',
+                    title:'返现/积分',
                     align:"center",
-                    dataIndex: 'offerBenefitList'
+                    dataIndex: 'returnPoint',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
                 },
                 {
-                    title:'审批时间',
+                    title:'记录来源',
                     align:"center",
-                    dataIndex: 'approvalTime'
+                    dataIndex: 'source',
+                    customRender: function (text) {
+                        return text === 0 ? '我已开户' : '我要开户';
+                    }
                 },
-                {
-                    title:'完成时间',
-                    align:"center",
-                    dataIndex: 'completedTime'
-                },
+
+
+
+                // {
+                //     title:'卡户银行/机构',
+                //     align:"center",
+                //     dataIndex: 'bankName',
+                //     customRender: function (text) {
+                //         return text ? text : '-';
+                //     }
+                // },
+                // {
+                //     title:'审批时间',
+                //     align:"center",
+                //     dataIndex: 'approvalTime'
+                // },
+                // {
+                //     title:'完成时间',
+                //     align:"center",
+                //     dataIndex: 'completedTime'
+                // },
                 {
                     title:'创建时间',
                     align:"center",
                     dataIndex: 'createdAt'
-                },
-                {
-                    title:'更新时间',
-                    align:"center",
-                    dataIndex: 'updatedAt'
                 },
                 {
                     title: '操作',
@@ -213,7 +261,11 @@ export default {
         },
     },
     methods: {
-
+        handleOfferInfo (record) {
+            this.$refs.offerInfo.edit(record);
+            this.$refs.offerInfo.title="详情";
+            this.$refs.offerInfo.disableSubmit = true;
+        },
 
         initDictConfig() {
         },

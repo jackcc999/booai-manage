@@ -2,11 +2,13 @@ package com.financial.manage.entity;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -69,6 +71,13 @@ public class UserOffer implements Serializable
     private java.lang.String offerCategory;
 
 	/**
+	 * 二级分类
+	 */
+	@Excel(name = "二级分类", width = 15)
+	@ApiModelProperty(value = "二级分类")
+	private String offerChildCategory;
+
+	/**
 	 * 活动标题
 	 */
 	@Excel(name = "活动标题", width = 15)
@@ -111,6 +120,36 @@ public class UserOffer implements Serializable
     private java.lang.String offerBenefitList;
 
 	/**
+	 * 卡户银行/机构
+	 */
+	@Excel(name = "卡户银行/机构", width = 15)
+	@ApiModelProperty(value = "卡户银行/机构")
+	private String bankName;
+
+	/**
+	 * 开户日期
+	 */
+	@Excel(name = "开户日期", width = 15)
+	@ApiModelProperty(value = "开户日期")
+	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date openDate;
+
+	/**
+	 * 投资金额
+	 */
+	@Excel(name = "投资金额", width = 15)
+	@ApiModelProperty(value = "投资金额")
+	private String investment;
+
+	/**
+	 * 返现/积分
+	 */
+	@Excel(name = "返现/积分", width = 15)
+	@ApiModelProperty(value = "返现/积分")
+	private String returnPoint;
+
+	/**
 	 * 审批时间
 	 */
 	@Excel(name = "审批时间", width = 15, format = "yyyy-MM-dd HH:mm:ss")
@@ -127,6 +166,13 @@ public class UserOffer implements Serializable
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "完成时间")
     private java.util.Date completedTime;
+
+	/**
+	 * 记录来源 0：我已开户、1：我要开户
+	 */
+	@Excel(name = "记录来源 0：我已开户、1：我要开户", width = 15)
+	@ApiModelProperty(value = "记录来源 0：我已开户、1：我要开户")
+	private Integer source;
 
 	/**
 	 * 创建时间

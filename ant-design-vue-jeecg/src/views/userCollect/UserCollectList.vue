@@ -56,22 +56,9 @@
             </template>
 
             <span slot="action" slot-scope="text, record">
-                <a @click="handleEdit(record)">编辑</a>
-
-                <a-divider type="vertical" />
-                <a-dropdown>
-                    <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-                    <a-menu slot="overlay">
-                        <a-menu-item>
-                            <a @click="handleDetail(record)">详情</a>
-                        </a-menu-item>
-                        <a-menu-item>
-                            <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                                <a>删除</a>
-                            </a-popconfirm>
-                        </a-menu-item>
-                    </a-menu>
-                </a-dropdown>
+                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
+                    <a>删除</a>
+                </a-popconfirm>
             </span>
         </a-table>
     </div>
@@ -116,6 +103,14 @@ export default {
                     title:'创建时间',
                     align:"center",
                     dataIndex: 'createdAt'
+                },
+                {
+                    title: '操作',
+                    dataIndex: 'action',
+                    align:"center",
+                    fixed:"right",
+                    width:147,
+                    scopedSlots: { customRender: 'action' }
                 }
             ],
             url: {

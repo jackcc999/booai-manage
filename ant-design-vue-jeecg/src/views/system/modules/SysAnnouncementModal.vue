@@ -20,6 +20,12 @@
         <a-form-model-item :labelCol="labelCol" :wrapperCol="wrapperCol" prop="titile" label="标题">
           <a-input placeholder="请输入标题" v-model="model.titile" :readOnly="disableSubmit"/>
         </a-form-model-item>
+        <a-form-model-item :labelCol="labelCol" :wrapperCol="wrapperCol" prop="image" label="图片">
+          <j-image-upload  v-model="model.image" ></j-image-upload>
+        </a-form-model-item>
+        <a-form-model-item :labelCol="labelCol" :wrapperCol="wrapperCol" prop="link" label="链接">
+          <a-input placeholder="请输入链接" v-model="model.link" :readOnly="disableSubmit"/>
+        </a-form-model-item>
         <a-form-model-item :labelCol="labelCol" :wrapperCol="wrapperCol" prop="msgAbstract" label="摘要">
           <a-textarea placeholder="请输入摘要"  v-model="model.msgAbstract" />
         </a-form-model-item>
