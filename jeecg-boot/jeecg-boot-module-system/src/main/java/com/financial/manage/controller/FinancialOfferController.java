@@ -189,4 +189,21 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
     {
         return super.importExcel(request, response, FinancialOffer.class);
     }
+
+	@RequestMapping(value = "/copy", method = RequestMethod.POST)
+	public Result<String> copy(@RequestBody FinancialOffer offer)
+	{
+		FinancialOffer info = financialOfferService.getById(offer.getId());
+		if(info == null)
+		{
+			return Result.error("活动不存在");
+		}
+
+		info.setId(null);
+		info.setCreatedAt(null);
+		info.setUpdatedAt(null);
+		financialOfferService.save(info);
+
+		return Result.OK("");
+	}
 }

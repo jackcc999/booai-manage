@@ -80,6 +80,7 @@
 
             <span slot="action" slot-scope="text, record">
                 <a @click="handleEdit(record)">编辑</a>
+                <a @click="handleCopy(record)" style="margin-left: 8px;">复制</a>
 
                 <a-divider type="vertical" />
                 <a-dropdown>
@@ -109,6 +110,7 @@ import { mixinDevice } from '@/utils/mixin'
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import FinancialOfferModal from './modules/FinancialOfferModal'
 import { offerCategory } from '@/utils/enums'
+import { postAction } from '@/api/manage'
 
 export default {
     name: 'FinancialOfferList',
@@ -186,6 +188,14 @@ export default {
                     }
                 },
                 {
+                    title:'返现说明',
+                    align:"center",
+                    dataIndex: 'returnRemark',
+                    customRender: function (text) {
+                        return text ? text : '-';
+                    }
+                },
+                {
                     title:'消费金额要求',
                     align:"center",
                     dataIndex: 'spendingAmount',
@@ -254,22 +264,6 @@ export default {
                         return text ? text : '-';
                     }
                 },
-                {
-                    title:'返现金额',
-                    align:"center",
-                    dataIndex: 'returnAmount',
-                    customRender: function (text) {
-                        return text + " 美元";
-                    }
-                },
-                {
-                    title:'返现说明',
-                    align:"center",
-                    dataIndex: 'returnRemark',
-                    customRender: function (text) {
-                        return text ? text : '-';
-                    }
-                },
                 // {
                 //     title:'免年费条件说明',
                 //     align:"center",
@@ -313,8 +307,8 @@ export default {
             dictOptions: {},
             superFieldList: [],
             isorter:{
-                column: 'sortOrder',
-                order: 'asc',
+                column: 'id',
+                order: 'desc',
             },
         }
     },
@@ -327,7 +321,19 @@ export default {
         },
     },
     methods: {
-
+        handleCopy (record) {
+            this.loading = true
+            postAction('/manage/financialOffer/copy', record).then(res => {
+                if(res.success) {
+                    this.$message.success('复制成功')
+                    this.searchQuery()
+                } else {
+                    this.$message.warning(res.message)
+                }
+            }).finally(() => {
+                this.loading = false
+            })
+        },
 
         initDictConfig() {
         },
