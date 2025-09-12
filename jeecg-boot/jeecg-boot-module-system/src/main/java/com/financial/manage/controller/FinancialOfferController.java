@@ -107,7 +107,7 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 		joiner.add(financialOffer.getGetPoint().toString());
 
 		financialOffer.setKeyword(joiner.toString());
-
+		financialOffer.setCreatedAt(null);
 		financialOfferService.updateById(financialOffer);
 		return Result.OK("编辑成功");
 	}

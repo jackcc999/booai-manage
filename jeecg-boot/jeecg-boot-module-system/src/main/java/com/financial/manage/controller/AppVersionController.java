@@ -99,6 +99,7 @@ public class AppVersionController extends JeecgController<AppVersion, IAppVersio
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody AppVersion appVersion)
 	{
+		appVersion.setCreatedAt(null);
 		appVersionService.updateById(appVersion);
 		return Result.OK("编辑成功");
 	}
