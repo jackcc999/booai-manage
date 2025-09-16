@@ -5,11 +5,11 @@
                 <a-row>
                     <a-col :span="12">
                         <a-form-model-item label="卡分类" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="category">
-                            <a-select v-model="model.category" placeholder="请选择卡分类">
-                                <a-select-option value="BANK">银行</a-select-option>
-                                <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
-                                <a-select-option value="BROKER">券商</a-select-option>
-                            </a-select>
+                            <a-radio-group v-model:value="model.category" placeholder="请选择卡分类">
+                                <a-radio value="BANK">银行</a-radio>
+                                <a-radio value="CREDIT_CARD">信用卡</a-radio>
+                                <a-radio value="BROKER">券商</a-radio>
+                            </a-radio-group>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
@@ -186,6 +186,7 @@ export default {
     data () {
         return {
             model:{
+                category: 'BANK',
                 status: 1
             },
             labelCol: {

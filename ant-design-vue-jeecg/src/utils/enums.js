@@ -35,6 +35,8 @@ export function userOfferState (key) {
         return '已拒绝'
     } else if(key === 'REWARDING') {
         return '领取奖励中'
+    } else if(key === 'DEPOSITED') {
+        return '已存款'
     }
 
     return '-';
