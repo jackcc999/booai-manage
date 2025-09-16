@@ -111,7 +111,7 @@ public class UserOfferController extends JeecgController<UserOffer, IUserOfferSe
 	 */
 	@AutoLog(value = "用户参与的活动-编辑")
 	@ApiOperation(value="用户参与的活动-编辑", notes="用户参与的活动-编辑")
-	@RequiresPermissions("com.financial:user_offer:edit")
+	//@RequiresPermissions("com.financial:user_offer:edit")
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody UserOffer userOffer)
 	{

@@ -77,7 +77,8 @@
             </template>
 
             <span slot="action" slot-scope="text, record">
-                <a v-has="'com.financial:user_offer:edit'" @click="handleEdit(record)">编辑</a>
+                <a @click="handleEdit(record)">编辑</a>
+                <!-- <a v-has="'com.financial:user_offer:edit'" @click="handleEdit(record)">编辑</a> -->
 
                 <a-divider type="vertical" />
                 <a-dropdown>

@@ -5,17 +5,17 @@
                 <a-row>
                     <a-col :span="12">
                         <a-form-model-item label="用户ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="userId">
-                            <a-input-number v-model="model.userId" placeholder="请输入用户ID" style="width: 100%" />
+                            <a-input-number v-model="model.userId" placeholder="请输入用户ID" disabled style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="活动ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerId">
-                            <a-input-number v-model="model.offerId" placeholder="请输入活动ID" style="width: 100%" />
+                            <a-input-number v-model="model.offerId" placeholder="请输入活动ID" disabled style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="状态" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
-                            <a-select v-model="model.offerCategory" placeholder="请选择状态">
+                            <a-select v-model="model.status" placeholder="请选择状态">
                                 <a-select-option value="APPLYING">申请中</a-select-option>
                                 <a-select-option value="COMPLETED">已完成</a-select-option>
                                 <a-select-option value="REJECTED">已拒绝</a-select-option>
@@ -24,7 +24,7 @@
                             </a-select>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="12">
+                    <!-- <a-col :span="12">
                         <a-form-model-item label="活动分类" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerCategory">
                             <a-select v-model="model.offerCategory" placeholder="请选择活动分类">
                                 <a-select-option value="BANK">银行</a-select-option>
@@ -67,7 +67,7 @@
                         <a-form-model-item label="权益列表" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="offerBenefitList">
                             <a-textarea v-model="model.offerBenefitList" rows="4" placeholder="请输入权益列表" />
                         </a-form-model-item>
-                    </a-col>
+                    </a-col> -->
                     <a-col :span="12">
                         <a-form-model-item label="开户银行/机构" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="bankName">
                             <a-input v-model="model.bankName" placeholder="请输入开户银行/机构"  ></a-input>
@@ -98,22 +98,12 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="审批时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="approvalTime">
-                            <j-date placeholder="请选择审批时间" v-model="model.approvalTime"    style="width: 100%" />
+                            <j-date placeholder="请选择审批时间" v-model="model.approvalTime" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="完成时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="completedTime">
-                            <j-date placeholder="请选择完成时间" v-model="model.completedTime"    style="width: 100%" />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="创建时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="createdAt">
-                            <j-date placeholder="请选择创建时间" v-model="model.createdAt"    style="width: 100%" />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="12">
-                        <a-form-model-item label="更新时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="updatedAt">
-                            <j-date placeholder="请选择更新时间" v-model="model.updatedAt"    style="width: 100%" />
+                            <j-date placeholder="请选择完成时间" v-model="model.completedTime" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
                 </a-row>
@@ -195,9 +185,22 @@ export default {
                         method = 'post';
                     }else{
                         httpurl += this.url.edit;
-                         method = 'put';
+                        method = 'put';
                     }
-                    httpAction(httpurl, this.model, method).then(res => {
+
+                    var params = {
+                        id: this.model.id,
+                        status: this.model.status,
+                        bankName: this.model.bankName,
+                        openDate: this.model.openDate,
+                        investment: this.model.investment,
+                        returnPoint: this.model.returnPoint,
+                        source: this.model.source,
+                        approvalTime: this.model.approvalTime,
+                        completedTime: this.model.completedTime,
+                    }
+
+                    httpAction(httpurl, params, method).then(res => {
                         if(res.success) {
                             that.$message.success(res.message);
                             that.$emit('ok');
