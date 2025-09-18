@@ -34,6 +34,14 @@
                             <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
                             <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
                             <a-button @click="handleAdd" type="primary" icon="plus" style="margin-left: 8px">新增</a-button>
+                            <a-dropdown v-if="selectedRowKeys.length > 0" style="margin-left: 8px">
+                                <a-menu slot="overlay">
+                                    <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/><span>删除</span></a-menu-item>
+                                </a-menu>
+                                <a-button>
+                                    <span>批量操作</span><a-icon type="down"/>
+                                </a-button>
+                            </a-dropdown>
                         </span>
                     </a-col>
                 </a-row>
@@ -43,64 +51,65 @@
 
         <!-- table区域-begin -->
         <div>
-        <a-table
-            ref="table"
-            size="middle"
-            :scroll="{x:true}"
-            bordered
-            rowKey="id"
-            :columns="columns"
-            :dataSource="dataSource"
-            :pagination="ipagination"
-            :loading="loading"
-            class="j-table-force-nowrap"
-            @change="handleTableChange">
+            <a-table
+                ref="table"
+                size="middle"
+                :scroll="{x:true}"
+                bordered
+                rowKey="id"
+                :columns="columns"
+                :dataSource="dataSource"
+                :pagination="ipagination"
+                :loading="loading"
+                :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
+                class="j-table-force-nowrap"
+                @change="handleTableChange">
 
-            <template slot="htmlSlot" slot-scope="text">
-                <div v-html="text"></div>
-            </template>
+                <template slot="htmlSlot" slot-scope="text">
+                    <div v-html="text"></div>
+                </template>
 
-            <template slot="linkSlot" slot-scope="text,record">
-                <a-tooltip>
-                    <template #title>{{record.description}}</template>
-                    <a :href="record.url" target="_blank">{{text}}</a>
-                </a-tooltip>
-            </template>
+                <template slot="linkSlot" slot-scope="text,record">
+                    <a-tooltip>
+                        <template #title>{{record.description}}</template>
+                        <a :href="record.url" target="_blank">{{text}}</a>
+                    </a-tooltip>
+                </template>
 
-            <template slot="imgSlot" slot-scope="text,record">
-                <span v-if="!text" style="font-size: 12px;font-style: italic;">无图片</span>
-                <img v-else :src="getImgView(text)" :preview="record.id" height="25px" alt="" style="max-width:80px;font-size: 12px;font-style: italic;"/>
-            </template>
+                <template slot="imgSlot" slot-scope="text,record">
+                    <span v-if="!text" style="font-size: 12px;font-style: italic;">无图片</span>
+                    <img v-else :src="getImgView(text)" :preview="record.id" height="25px" alt="" style="max-width:80px;font-size: 12px;font-style: italic;"/>
+                </template>
 
 
-            <template slot="fileSlot" slot-scope="text">
-                <span v-if="!text" style="font-size: 12px;font-style: italic;">无文件</span>
-                <a-button v-else :ghost="true" type="primary" icon="download" size="small" @click="downloadFile(text)">下载</a-button>
-            </template>
+                <template slot="fileSlot" slot-scope="text">
+                    <span v-if="!text" style="font-size: 12px;font-style: italic;">无文件</span>
+                    <a-button v-else :ghost="true" type="primary" icon="download" size="small" @click="downloadFile(text)">下载</a-button>
+                </template>
 
-            <span slot="action" slot-scope="text, record">
-                <a @click="handleEdit(record)">编辑</a>
-                <a @click="handleCopy(record)" style="margin-left: 8px;">复制</a>
+                <span slot="action" slot-scope="text, record">
+                    <a @click="handleEdit(record)">编辑</a>
+                    <a @click="handleCopy(record)" style="margin-left: 8px;">复制</a>
 
-                <a-divider type="vertical" />
-                <a-dropdown>
-                    <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
-                    <a-menu slot="overlay">
-                        <a-menu-item>
-                            <a @click="handleDetail(record)">详情</a>
-                        </a-menu-item>
-                        <a-menu-item>
-                            <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                                <a>删除</a>
-                            </a-popconfirm>
-                        </a-menu-item>
-                    </a-menu>
-                </a-dropdown>
-            </span>
-        </a-table>
-    </div>
+                    <a-divider type="vertical" />
+                    <a-dropdown>
+                        <a class="ant-dropdown-link">更多 <a-icon type="down" /></a>
+                        <a-menu slot="overlay">
+                            <a-menu-item>
+                                <a @click="handleDetail(record)">详情</a>
+                            </a-menu-item>
+                            <a-menu-item>
+                                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
+                                    <a>删除</a>
+                                </a-popconfirm>
+                            </a-menu-item>
+                        </a-menu>
+                    </a-dropdown>
+                </span>
+            </a-table>
+        </div>
 
-    <financial-offer-modal ref="modalForm" @ok="modalFormOk"></financial-offer-modal>
+        <financial-offer-modal ref="modalForm" @ok="modalFormOk"></financial-offer-modal>
     </a-card>
 </template>
 
@@ -307,8 +316,8 @@ export default {
             dictOptions: {},
             superFieldList: [],
             isorter:{
-                column: 'id',
-                order: 'desc',
+                column: 'sortOrder',
+                order: 'asc',
             },
         }
     },

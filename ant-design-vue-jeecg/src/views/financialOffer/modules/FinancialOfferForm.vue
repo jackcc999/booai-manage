@@ -126,9 +126,22 @@
                             <a-input v-model="model.monthRemark" placeholder="请输入月费说明"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="免年费条件说明" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
+                    <a-col :span="12">
+                        <a-form-model-item label="排序" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="sortOrder">
+                            <a-input-number v-model="model.sortOrder" placeholder="请输入排序因子，值越小越靠前" style="width: 100%" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="免年费条件说明" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="feeWaiverCondition">
                             <a-input v-model="model.feeWaiverCondition" placeholder="请输入免年费条件说明"  />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="活动状态" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
+                            <a-radio-group v-model:value="model.status" placeholder="请选择状态">
+                                <a-radio :value="1">展示</a-radio>
+                                <a-radio :value="0">隐藏</a-radio>
+                            </a-radio-group>
                         </a-form-model-item>
                     </a-col>
                     <a-col :span="24">
@@ -144,18 +157,6 @@
                     <a-col :span="24">
                         <a-form-model-item label="活动描述" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="description">
                             <j-editor v-model="model.description" placeholder="请输入活动描述" />
-                        </a-form-model-item>
-                    </a-col>
-
-
-
-
-                    <a-col :span="12">
-                        <a-form-model-item label="活动状态" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="status">
-                            <a-select v-model="model.status" placeholder="请选择状态">
-                                <a-select-option :value="1">展示</a-select-option>
-                                <a-select-option :value="0">隐藏</a-select-option>
-                            </a-select>
                         </a-form-model-item>
                     </a-col>
                 </a-row>
@@ -187,7 +188,8 @@ export default {
         return {
             model:{
                 category: 'BANK',
-                status: 1
+                status: 1,
+                sortOrder: 100,
             },
             labelCol: {
                 xs: { span: 24 },
