@@ -1,6 +1,7 @@
 package com.financial.manage.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
 import javax.servlet.http.HttpServletRequest;
@@ -108,6 +109,7 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 
 		financialOffer.setKeyword(joiner.toString());
 		financialOffer.setCreatedAt(null);
+		financialOffer.setUpdatedAt(new Date());
 		financialOfferService.updateById(financialOffer);
 		return Result.OK("编辑成功");
 	}
