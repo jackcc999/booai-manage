@@ -1,5 +1,6 @@
 package com.financial.manage.controller;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -7,8 +8,14 @@ import java.util.StringJoiner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.com.dgwl.tools.v2.constant.ContentTypeConstant;
+import cn.com.dgwl.tools.v2.excel.ExcelReader;
+import cn.com.dgwl.tools.v2.excel.ExcelWriter;
+import cn.com.dgwl.tools.v2.excel.enums.FileType;
+import cn.com.dgwl.tools.v2.servlet.HttpServlet;
 import cn.com.dgwl.tools.v2.util.JsonUtil;
 import cn.com.dgwl.tools.v2.util.StringUtil;
+import cn.com.dgwl.tools.v2.util.UrlUtil;
 import com.financial.manage.dto.RewardItemDTO;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
@@ -23,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jeecg.common.system.base.controller.JeecgController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -173,23 +181,50 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
     */
     //@RequiresPermissions("com.financial:financial_offer:exportXls")
     @RequestMapping(value = "/exportXls")
-    public ModelAndView exportXls(HttpServletRequest request, FinancialOffer financialOffer)
+    public void exportXls(HttpServletRequest request, HttpServletResponse response, FinancialOffer financialOffer) throws Exception
     {
-        return super.exportXls(request, financialOffer, FinancialOffer.class, "financial_offer");
+		QueryWrapper<FinancialOffer> wrapper = QueryGenerator.initQueryWrapper(financialOffer, request.getParameterMap());
+		List<FinancialOffer> dataList = financialOfferService.list(wrapper);
+
+
+		response.setContentType(ContentTypeConstant.OCTET_STREAM);
+		response.setHeader("Content-Disposition","attachment;filename=" + UrlUtil.urlEncode("活动导出.xls"));
+
+		ExcelWriter writer = new ExcelWriter(FileType.XLS);
+		writer.writeWithHeader(dataList, FinancialOffer.class);
+		writer.save(response.getOutputStream());
     }
 
     /**
       * 通过excel导入数据
     *
-    * @param request
-    * @param response
+    * @param file
     * @return
     */
     //@RequiresPermissions("financial_offer:importExcel")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-    public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response)
+    public Result<String> importExcel(@RequestParam("file") MultipartFile file) throws Exception
     {
-        return super.importExcel(request, response, FinancialOffer.class);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(file.getBytes());
+		List<FinancialOffer> dataList = new ExcelReader(inputStream, FileType.XLS).readAndClose(FinancialOffer.class);
+		for(FinancialOffer offer : dataList)
+		{
+			log.info("导入: {}", JsonUtil.toJsonString(offer));
+			if(offer.getId() != null && offer.getId() > 0)
+			{
+				offer.setUpdatedAt(new Date());
+				financialOfferService.updateById(offer);
+			}
+			else
+			{
+				offer.setId(null);
+				offer.setCreatedAt(new Date());
+				offer.setUpdatedAt(new Date());
+				financialOfferService.save(offer);
+			}
+		}
+
+		return Result.OK("", "");
     }
 
 	@RequestMapping(value = "/copy", method = RequestMethod.POST)

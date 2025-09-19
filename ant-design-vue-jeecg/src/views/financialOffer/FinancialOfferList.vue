@@ -34,6 +34,13 @@
                             <a-button type="primary" @click="searchQuery" icon="search">查询</a-button>
                             <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">重置</a-button>
                             <a-button @click="handleAdd" type="primary" icon="plus" style="margin-left: 8px">新增</a-button>
+
+                            <a-button type="primary" icon="download" @click="handleExportXls('活动')" style="margin-left: 8px">导出</a-button>
+                            <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" style="margin-left: 8px" @change="handleImportExcel">
+                                <a-button type="primary" icon="import">导入</a-button>
+                            </a-upload>
+
+
                             <a-dropdown v-if="selectedRowKeys.length > 0" style="margin-left: 8px">
                                 <a-menu slot="overlay">
                                     <a-menu-item key="1" @click="batchDel"><a-icon type="delete"/><span>删除</span></a-menu-item>
