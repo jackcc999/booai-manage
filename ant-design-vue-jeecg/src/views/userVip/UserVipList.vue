@@ -143,14 +143,14 @@ export default {
                     align:"center",
                     dataIndex: 'createAt'
                 },
-                // {
-                //     title: '操作',
-                //     dataIndex: 'action',
-                //     align:"center",
-                //     fixed:"right",
-                //     width:147,
-                //     scopedSlots: { customRender: 'action' }
-                // }
+                {
+                    title: '操作',
+                    dataIndex: 'action',
+                    align:"center",
+                    fixed:"right",
+                    width:147,
+                    scopedSlots: { customRender: 'action' }
+                }
             ],
             url: {
                 list: "/manage/userVip/list",

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.com.dgwl.tools.v2.util.BeanUtil;
 import cn.com.dgwl.tools.v2.util.DateUtil;
+import cn.com.dgwl.tools.v2.util.StringUtil;
 import com.financial.manage.dto.UserCollectDTO;
 import com.financial.manage.dto.UserVipDTO;
 import com.financial.manage.entity.User;
@@ -149,7 +150,21 @@ public class UserVipController extends JeecgController<UserVip, IUserVipService>
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody UserVip userVip)
 	{
-		//userVipService.updateById(userVip);
+		QueryWrapper<UserVip> wrapper = new QueryWrapper<>();
+		wrapper.lambda().eq(UserVip::getUserId, userVip.getUserId())
+				.ne(UserVip::getId, userVip.getId());
+		List<UserVip> userVips = userVipService.list(wrapper);
+		for(UserVip info : userVips)
+		{
+			if(DateUtil.overlapsWith(info.getBeginDate(), info.getEndDate(), userVip.getBeginDate(), userVip.getEndDate()))
+			{
+				return Result.error(StringUtil.format("该时间段和已有的时间段有交叉[{}~{}]", DateUtil.format(info.getBeginDate(), DateUtil.FORMAT_DATE), DateUtil.format(info.getEndDate(), DateUtil.FORMAT_DATE)));
+			}
+		}
+
+		userVip.setCreateAt(null);
+		userVip.setUpdateAt(new Date());
+		userVipService.updateById(userVip);
 		return Result.OK("编辑成功");
 	}
 

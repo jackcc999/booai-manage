@@ -3,14 +3,24 @@
         <j-form-container :disabled="formDisabled">
             <a-form-model ref="form" :model="model" :rules="validatorRules" slot="detail">
                 <a-row>
-                    <a-col :span="24">
-                        <a-form-model-item label="用户ID" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="userId">
+                    <a-col :span="12">
+                        <a-form-model-item label="用户ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="userId">
                             <a-input-number v-model="model.userId" placeholder="请输入用户ID" style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="VIP" class="w24" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="vipId">
+                    <a-col :span="12">
+                        <a-form-model-item label="开始日期" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="beginDate">
+                            <j-date placeholder="请选择开始日期" v-model="model.beginDate"    style="width: 100%" />
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="VIP" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="vipId">
                             <id-and-name v-model="model.vipId" url="/manage/vip/getList" placeholder="请选择VIP" showSearch></id-and-name>
+                        </a-form-model-item>
+                    </a-col>
+                    <a-col :span="12">
+                        <a-form-model-item label="结束日期" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="endDate">
+                            <j-date placeholder="请选择结束日期" v-model="model.endDate"    style="width: 100%" />
                         </a-form-model-item>
                     </a-col>
                 </a-row>
