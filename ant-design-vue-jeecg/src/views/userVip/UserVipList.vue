@@ -141,7 +141,7 @@ export default {
                 {
                     title:'创建时间',
                     align:"center",
-                    dataIndex: 'createAt'
+                    dataIndex: 'createdAt'
                 },
                 {
                     title: '操作',

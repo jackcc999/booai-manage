@@ -162,8 +162,8 @@ public class UserVipController extends JeecgController<UserVip, IUserVipService>
 			}
 		}
 
-		userVip.setCreateAt(null);
-		userVip.setUpdateAt(new Date());
+		userVip.setCreatedAt(null);
+		userVip.setUpdatedAt(new Date());
 		userVipService.updateById(userVip);
 		return Result.OK("编辑成功");
 	}

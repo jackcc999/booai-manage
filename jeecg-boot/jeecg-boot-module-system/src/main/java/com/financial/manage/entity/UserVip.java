@@ -85,7 +85,7 @@ public class UserVip implements Serializable
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创建时间")
-    private java.util.Date createAt;
+    private java.util.Date createdAt;
 
 	/**
 	 * 更新时间
@@ -94,5 +94,5 @@ public class UserVip implements Serializable
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "更新时间")
-    private java.util.Date updateAt;
+    private java.util.Date updatedAt;
 }

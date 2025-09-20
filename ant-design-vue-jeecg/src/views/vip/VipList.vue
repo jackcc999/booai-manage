@@ -149,12 +149,12 @@ export default {
                 {
                     title:'创建时间',
                     align:"center",
-                    dataIndex: 'createAt'
+                    dataIndex: 'createdAt'
                 },
                 {
                     title:'更新时间',
                     align:"center",
-                    dataIndex: 'updateAt'
+                    dataIndex: 'updatedAt'
                 },
                 {
                     title: '操作',

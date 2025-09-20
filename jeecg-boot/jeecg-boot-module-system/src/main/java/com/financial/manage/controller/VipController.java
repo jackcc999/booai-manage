@@ -99,8 +99,8 @@ public class VipController extends JeecgController<Vip, IVipService>
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody Vip vip)
 	{
-		vip.setCreateAt(null);
-		vip.setUpdateAt(null);
+		vip.setCreatedAt(null);
+		vip.setUpdatedAt(null);
 		vipService.updateById(vip);
 		return Result.OK("编辑成功");
 	}
