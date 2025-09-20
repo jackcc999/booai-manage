@@ -116,14 +116,17 @@ export default {
                     dataIndex: 'userId'
                 },
                 {
-                    title:'VIP ID',
+                    title:'VIP名称',
                     align:"center",
-                    dataIndex: 'vipId'
+                    dataIndex: 'vipName'
                 },
                 {
                     title:'VIP价格',
                     align:"center",
-                    dataIndex: 'price'
+                    dataIndex: 'price',
+                    customRender(text) {
+                        return text.toFixed(2) + ' 美元'
+                    },
                 },
                 {
                     title:'开始日期',
@@ -140,19 +143,14 @@ export default {
                     align:"center",
                     dataIndex: 'createAt'
                 },
-                {
-                    title:'更新时间',
-                    align:"center",
-                    dataIndex: 'updateAt'
-                },
-                {
-                    title: '操作',
-                    dataIndex: 'action',
-                    align:"center",
-                    fixed:"right",
-                    width:147,
-                    scopedSlots: { customRender: 'action' }
-                }
+                // {
+                //     title: '操作',
+                //     dataIndex: 'action',
+                //     align:"center",
+                //     fixed:"right",
+                //     width:147,
+                //     scopedSlots: { customRender: 'action' }
+                // }
             ],
             url: {
                 list: "/manage/userVip/list",

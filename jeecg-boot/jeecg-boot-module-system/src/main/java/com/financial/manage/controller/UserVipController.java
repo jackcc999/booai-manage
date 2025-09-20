@@ -5,10 +5,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.com.dgwl.tools.v2.util.BeanUtil;
 import cn.com.dgwl.tools.v2.util.DateUtil;
+import com.financial.manage.dto.UserCollectDTO;
+import com.financial.manage.dto.UserVipDTO;
 import com.financial.manage.entity.User;
 import com.financial.manage.entity.Vip;
 import com.financial.manage.service.IUserService;
@@ -65,12 +69,22 @@ public class UserVipController extends JeecgController<UserVip, IUserVipService>
 	//@AutoLog(value = "user_vip-分页列表查询")
 	@ApiOperation(value="user_vip-分页列表查询", notes="user_vip-分页列表查询")
 	@GetMapping(value = "/list")
-	public Result<IPage<UserVip>> queryPageList(UserVip userVip, @RequestParam(name="pageNo", defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", defaultValue="10") Integer pageSize, HttpServletRequest req)
+	public Result<Page<UserVipDTO>> queryPageList(UserVip userVip, @RequestParam(name="pageNo", defaultValue="1") Integer pageNo, @RequestParam(name="pageSize", defaultValue="10") Integer pageSize, HttpServletRequest req)
 	{
 		QueryWrapper<UserVip> queryWrapper = QueryGenerator.initQueryWrapper(userVip, req.getParameterMap());
 		Page<UserVip> page = new Page<UserVip>(pageNo, pageSize);
 		IPage<UserVip> pageList = userVipService.page(page, queryWrapper);
-		return Result.OK(pageList);
+
+
+		Page<UserVipDTO> pageInfo = new Page<>();
+		pageInfo.setTotal(pageList.getTotal()).setSize(pageSize).setCurrent(pageNo).setRecords(pageList.getRecords().stream().map(item -> {
+			UserVipDTO dto = BeanUtil.copy(item, UserVipDTO.class);
+			dto.setVipName(vipService.getById(item.getVipId()).getName());
+
+			return dto;
+		}).collect(Collectors.toList()));
+
+		return Result.OK(pageInfo);
 	}
 
 	/**
