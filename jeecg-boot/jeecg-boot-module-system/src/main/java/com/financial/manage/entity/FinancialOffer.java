@@ -7,7 +7,9 @@ import cn.com.dgwl.tools.v2.excel.annotation.Excel;
 import cn.com.dgwl.tools.v2.excel.annotation.XssHeader;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -204,6 +206,12 @@ public class FinancialOffer implements Serializable
 	 */
 	@ApiModelProperty(value = "关键词 搜索用")
 	private String keyword;
+	/**
+	 * 是否已删除（0：未删除，1：已删除）
+	 */
+	@ApiModelProperty(value = "是否已删除（0：未删除，1：已删除）")
+	@TableLogic
+	private Integer isDeleted;
 	/**
 	 * 创建时间
 	 */
