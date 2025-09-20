@@ -42,7 +42,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
 	@Resource
 	private SysPermissionMapper sysPermissionMapper;
-	
+
 	@Resource
 	private ISysPermissionDataRuleService permissionDataRuleService;
 
@@ -65,7 +65,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		sysPermissionMapper.backupVue2Menu();
 		sysPermissionMapper.changeVue3Menu();
 	}
-	
+
 	/**
 	  * 真实删除
 	 */
@@ -100,10 +100,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		//删除部门角色授权
 		sysDepartRolePermissionMapper.deleteByMap(map);
 	}
-	
+
 	/**
 	 * 根据父id删除其关联的子节点数据
-	 * 
+	 *
 	 * @return
 	 */
 	public void removeChildrenBy(String parentId) {
@@ -140,7 +140,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 			}
 		}
 	}
-	
+
 	/**
 	  * 逻辑删除
 	 */
@@ -186,7 +186,6 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 	@CacheEvict(value = CacheConstant.SYS_DATA_PERMISSIONS_CACHE,allEntries=true)
 	public void editPermission(SysPermission sysPermission) throws JeecgBootException {
 		SysPermission p = this.getById(sysPermission.getId());
-		//TODO 该节点判断是否还有子节点
 		if(p==null) {
 			throw new JeecgBootException("未找到菜单信息");
 		}else {
@@ -198,12 +197,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 			}
 			//Step2.判断菜单下级是否有菜单，无则设置为叶子节点
 			Long count = this.count(new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, sysPermission.getId()));
-			if(count==0) {
-				sysPermission.setLeaf(true);
-			}
+			sysPermission.setLeaf(count == 0);
 			//----------------------------------------------------------------------
 			this.updateById(sysPermission);
-			
+
 			//如果当前菜单的父菜单变了，则需要修改新父菜单和老父菜单的，叶子节点状态
 			String pid = sysPermission.getParentId();
             boolean flag = (oConvertUtils.isNotEmpty(pid) && !pid.equals(p.getParentId())) || oConvertUtils.isEmpty(pid)&&oConvertUtils.isNotEmpty(p.getParentId());
@@ -217,10 +214,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 						this.sysPermissionMapper.setMenuLeaf(p.getParentId(), 1);
 					}
 				}
-				
+
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -237,7 +234,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		query.eq(SysPermissionDataRule::getPermissionId, id);
 		Long countValue = this.permissionDataRuleService.count(query);
 		if(countValue > 0) {
-			this.permissionDataRuleService.remove(query);	
+			this.permissionDataRuleService.remove(query);
 		}
 	}
 
