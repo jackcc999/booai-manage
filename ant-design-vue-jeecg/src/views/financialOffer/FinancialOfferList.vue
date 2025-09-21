@@ -6,13 +6,13 @@
                 <a-row :gutter="24">
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="开户活动标题">
-                            <j-input placeholder="请输入开户活动标题" v-model="queryParam.title"></j-input>
+                            <j-input placeholder="请输入开户活动标题" v-model="queryParam.title" @change="searchQuery"></j-input>
                         </a-form-item>
                     </a-col>
 
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="卡分类">
-                            <a-select v-model="queryParam.category" placeholder="请选择卡分类">
+                            <a-select v-model="queryParam.category" placeholder="请选择卡分类" @change="searchQuery">
                                 <a-select-option value="BANK">银行</a-select-option>
                                 <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
                                 <a-select-option value="BROKER">券商</a-select-option>
@@ -22,7 +22,7 @@
 
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="活动状态">
-                            <a-select v-model="queryParam.status" placeholder="请选择活动状态">
+                            <a-select v-model="queryParam.status" placeholder="请选择活动状态" @change="searchQuery">
                                 <a-select-option :value="1">展示</a-select-option>
                                 <a-select-option :value="0">隐藏</a-select-option>
                             </a-select>
@@ -39,7 +39,6 @@
                             <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" style="margin-left: 8px" @change="handleImportExcel">
                                 <a-button type="primary" icon="import">导入</a-button>
                             </a-upload>
-
 
                             <a-dropdown v-if="selectedRowKeys.length > 0" style="margin-left: 8px">
                                 <a-menu slot="overlay">

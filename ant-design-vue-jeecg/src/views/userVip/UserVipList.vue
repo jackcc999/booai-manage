@@ -6,7 +6,7 @@
                 <a-row :gutter="24">
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="用户ID">
-                            <j-input placeholder="请输入用户ID" v-model="queryParam.userId"></j-input>
+                            <a-input placeholder="请输入用户ID" v-model="queryParam.userId"></a-input>
                         </a-form-item>
                     </a-col>
 

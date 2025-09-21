@@ -6,12 +6,12 @@
                 <a-row :gutter="24">
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="用户ID">
-                            <a-input placeholder="请输入用户ID" v-model="queryParam.userId"></a-input>
+                            <a-input placeholder="请输入用户ID" v-model="queryParam.userId" @change="searchQuery"></a-input>
                         </a-form-item>
                     </a-col>
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="状态">
-                            <a-select v-model="queryParam.status" placeholder="请选择状态">
+                            <a-select v-model="queryParam.status" placeholder="请选择状态" @change="searchQuery">
                                 <a-select-option value="APPLYING">申请中</a-select-option>
                                 <a-select-option value="COMPLETED">已完成</a-select-option>
                                 <a-select-option value="REJECTED">已拒绝</a-select-option>
@@ -23,7 +23,7 @@
 
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="活动分类">
-                            <a-select v-model="queryParam.offerCategory" placeholder="请选择活动分类">
+                            <a-select v-model="queryParam.offerCategory" placeholder="请选择活动分类" @change="searchQuery">
                                 <a-select-option value="BANK">银行</a-select-option>
                                 <a-select-option value="CREDIT_CARD">信用卡</a-select-option>
                                 <a-select-option value="BROKER">券商</a-select-option>

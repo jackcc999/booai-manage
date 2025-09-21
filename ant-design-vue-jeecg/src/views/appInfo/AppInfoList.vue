@@ -6,13 +6,13 @@
                 <a-row :gutter="24">
                     <a-col :xl="6" :lg="7" :md="8" :sm="24">
                         <a-form-item label="应用ID">
-                            <j-input placeholder="请输入应用ID" v-model="queryParam.appId"></j-input>
+                            <j-input placeholder="请输入应用ID" v-model="queryParam.appId" @change="searchQuery"></j-input>
                         </a-form-item>
                     </a-col>
 
                     <a-col :xl="6" :lg="7" :md="8" :sm="24">
                         <a-form-item label="应用名称">
-                            <j-input placeholder="请输入应用名称" v-model="queryParam.appName"></j-input>
+                            <j-input placeholder="请输入应用名称" v-model="queryParam.appName" @change="searchQuery"></j-input>
                         </a-form-item>
                     </a-col>
 
