@@ -21,6 +21,18 @@
                     </a-col>
 
                     <a-col :xl="8" :lg="8" :md="8" :sm="24">
+                        <a-form-item label="二级分类">
+                            <j-input placeholder="请输入二级分类" v-model="queryParam.childCategory" @change="searchQuery"></j-input>
+                        </a-form-item>
+                    </a-col>
+
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
+                        <a-form-item label="机构名称">
+                            <j-input placeholder="请输入机构名称" v-model="queryParam.provider" @change="searchQuery"></j-input>
+                        </a-form-item>
+                    </a-col>
+
+                    <a-col :xl="8" :lg="8" :md="8" :sm="24">
                         <a-form-item label="活动状态">
                             <a-select v-model="queryParam.status" placeholder="请选择活动状态" @change="searchQuery">
                                 <a-select-option :value="1">展示</a-select-option>
