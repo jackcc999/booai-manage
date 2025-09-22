@@ -83,14 +83,7 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody FinancialOffer financialOffer)
 	{
-		StringJoiner joiner = new StringJoiner(",");
-		joiner.add(financialOffer.getTitle());
-		joiner.add(financialOffer.getProvider());
-		joiner.add(financialOffer.getDepositAmount().toPlainString());
-		joiner.add(financialOffer.getReturnAmount().toString());
-		joiner.add(financialOffer.getGetPoint().toString());
-
-		financialOffer.setKeyword(joiner.toString());
+		setKeyword(financialOffer);
 
 		financialOfferService.save(financialOffer);
 		return Result.OK("添加成功！");
@@ -108,14 +101,8 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody FinancialOffer financialOffer)
 	{
-		StringJoiner joiner = new StringJoiner(",");
-		joiner.add(financialOffer.getTitle());
-		joiner.add(financialOffer.getProvider());
-		joiner.add(financialOffer.getDepositAmount().toPlainString());
-		joiner.add(financialOffer.getReturnAmount().toString());
-		joiner.add(financialOffer.getGetPoint().toString());
+		setKeyword(financialOffer);
 
-		financialOffer.setKeyword(joiner.toString());
 		financialOffer.setCreatedAt(null);
 		financialOffer.setUpdatedAt(new Date());
 		financialOfferService.updateById(financialOffer);
@@ -210,6 +197,8 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 		for(FinancialOffer offer : dataList)
 		{
 			log.info("导入: {}", JsonUtil.toJsonString(offer));
+
+			setKeyword(offer);
 			if(offer.getId() != null && offer.getId() > 0)
 			{
 				offer.setUpdatedAt(new Date());
@@ -242,5 +231,17 @@ public class FinancialOfferController extends JeecgController<FinancialOffer, IF
 		financialOfferService.save(info);
 
 		return Result.OK("");
+	}
+
+	private void setKeyword(FinancialOffer offer)
+	{
+		StringJoiner joiner = new StringJoiner(",");
+		joiner.add(offer.getTitle());
+		joiner.add(offer.getProvider());
+		joiner.add(offer.getDepositAmount().toPlainString());
+		joiner.add(offer.getReturnAmount().toString());
+		joiner.add(offer.getGetPoint().toString());
+
+		offer.setKeyword(joiner.toString());
 	}
 }
