@@ -25,6 +25,7 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-model-item label="登录类型" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="loginType">
+                            <a-select v-model="model.loginType" placeholder="请选择登录类型">
                                 <a-select-option value="GOOGLE">Google</a-select-option>
                                 <a-select-option value="APPLE">Apple</a-select-option>
                                 <a-select-option value="GUEST">游客</a-select-option>
