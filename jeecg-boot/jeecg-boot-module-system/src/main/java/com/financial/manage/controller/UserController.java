@@ -9,6 +9,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
@@ -79,7 +81,7 @@ public class UserController extends JeecgController<User, IUserService>
 	 */
 	@AutoLog(value = "user-添加")
 	@ApiOperation(value="user-添加", notes="user-添加")
-	//@RequiresPermissions("com.financial:user:add")
+	@RequiresPermissions("com.financial:user:add")
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody User user)
 	{
@@ -95,7 +97,7 @@ public class UserController extends JeecgController<User, IUserService>
 	 */
 	@AutoLog(value = "user-编辑")
 	@ApiOperation(value="user-编辑", notes="user-编辑")
-	//@RequiresPermissions("com.financial:user:edit")
+	@RequiresPermissions("com.financial:user:edit")
 	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
 	public Result<String> edit(@RequestBody User user)
 	{
@@ -111,7 +113,7 @@ public class UserController extends JeecgController<User, IUserService>
 	 */
 	@AutoLog(value = "user-通过id删除")
 	@ApiOperation(value="user-通过id删除", notes="user-通过id删除")
-	//@RequiresPermissions("com.financial:user:delete")
+	@RequiresPermissions("com.financial:user:delete")
 	@DeleteMapping(value = "/delete")
 	public Result<String> delete(@RequestParam(name="id",required=true) String id)
 	{
@@ -127,7 +129,7 @@ public class UserController extends JeecgController<User, IUserService>
 	 */
 	@AutoLog(value = "user-批量删除")
 	@ApiOperation(value="user-批量删除", notes="user-批量删除")
-	//@RequiresPermissions("com.financial:user:deleteBatch")
+	@RequiresPermissions("com.financial:user:deleteBatch")
 	@DeleteMapping(value = "/deleteBatch")
 	public Result<String> deleteBatch(@RequestParam(name="ids",required=true) String ids)
 	{
@@ -174,7 +176,7 @@ public class UserController extends JeecgController<User, IUserService>
     * @param response
     * @return
     */
-    //@RequiresPermissions("user:importExcel")
+    @RequiresPermissions("user:importExcel")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response)
     {

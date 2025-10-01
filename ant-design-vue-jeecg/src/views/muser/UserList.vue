@@ -63,7 +63,7 @@
             </template>
 
             <span slot="action" slot-scope="text, record">
-                <a @click="handleEdit(record)">编辑</a>
+                <a @click="handleEdit(record)" v-has="'com.financial:user:edit'">编辑</a>
 
                 <a-divider type="vertical" />
                 <a-dropdown>
@@ -72,7 +72,7 @@
                         <a-menu-item>
                             <a @click="handleDetail(record)">详情</a>
                         </a-menu-item>
-                        <a-menu-item>
+                        <a-menu-item v-has="'com.financial:user:delete'">
                             <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
                                 <a>删除</a>
                             </a-popconfirm>
@@ -167,6 +167,14 @@ export default {
                     title:'创建时间',
                     align:"center",
                     dataIndex: 'createdAt'
+                },
+                {
+                    title: '操作',
+                    dataIndex: 'action',
+                    align:"center",
+                    fixed:"right",
+                    width:147,
+                    scopedSlots: { customRender: 'action' }
                 }
             ],
             url: {
