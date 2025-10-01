@@ -3,39 +3,32 @@
         <j-form-container :disabled="formDisabled">
             <a-form-model ref="form" :model="model" :rules="validatorRules" slot="detail">
                 <a-row>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="用户名" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="username">
                             <a-input v-model="model.username" placeholder="请输入用户名"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="邮箱地址" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="email">
                             <a-input v-model="model.email" placeholder="请输入邮箱地址"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="Google ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="googleId">
                             <a-input v-model="model.googleId" placeholder="请输入Google ID"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
+                    <a-col :span="12">
                         <a-form-model-item label="Apple ID" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="appleId">
                             <a-input v-model="model.appleId" placeholder="请输入Apple ID"  ></a-input>
                         </a-form-model-item>
                     </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="登录类型（GOOGLE：Google，APPLE：Apple，GUEST：游客）" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="loginType">
-                            <a-input v-model="model.loginType" placeholder="请输入登录类型（GOOGLE：Google，APPLE：Apple，GUEST：游客）"  ></a-input>
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="创建时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="createdAt">
-                            <j-date placeholder="请选择创建时间" v-model="model.createdAt"    style="width: 100%" />
-                        </a-form-model-item>
-                    </a-col>
-                    <a-col :span="24">
-                        <a-form-model-item label="更新时间" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="updatedAt">
-                            <j-date placeholder="请选择更新时间" v-model="model.updatedAt"    style="width: 100%" />
+                    <a-col :span="12">
+                        <a-form-model-item label="登录类型" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="loginType">
+                                <a-select-option value="GOOGLE">Google</a-select-option>
+                                <a-select-option value="APPLE">Apple</a-select-option>
+                                <a-select-option value="GUEST">游客</a-select-option>
+                            </a-select>
                         </a-form-model-item>
                     </a-col>
                 </a-row>
@@ -75,13 +68,6 @@ export default {
             },
             confirmLoading: false,
             validatorRules: {
-                            
-            
-            
-            
-            
-            
-            
             },
             url: {
                 add: "/manage/user/add",
